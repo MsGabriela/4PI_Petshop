@@ -33,7 +33,7 @@ public class ClientePopulate implements CommandLineRunner{
             c.setAtivo(rand.nextBoolean());
             c.setDataNascimento(new Date());
             c.setEmail("email@email.com");
-            c.setNome("Cliente " + i);
+            c.setName("Cliente " + 1);
             c.setSobrenome("Teste");
             c.setSexo("Masculino");
             c.setTelefone("65987458");

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1 style="text-align: center">Gerenciamento de Clientes</h1>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Status</th>
+            <th scope="col">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cliente : ${clientes}">
+            <td th:text="${cliente.id}"></td>
+            <td th:text="${cliente.nome}"></td>
+            <td th:text="${cliente.ativo == 1? 'Disponivel' : 'Indisponivel'}" th:style="${cliente.ativo == 1 ? 'color: green;' : 'color: red;'}"></td>
+            <td>
+                <a class="btn btn-primary col-md-4" th:href="@{/Alterar/{id}(id=${cliente.id})}">Alterar</a>
+                &nbsp;&nbsp;
+                <a class="btn btn-danger col-md-4 excluirCliente" th:attr="id = ${cliente.id}, nome = ${cliente.nome}" th:href="@{/Excluir/{id}(id=${cliente.id})}">Desabilitar</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" th:href="@{/Adicionar}">Adicionar Novo</a>
+</body>
+</html>

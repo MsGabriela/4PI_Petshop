@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<body>
+<div layout:fragment="conteudo">
+<!-- ##### Blog Wrapper Area Start ##### -->
+<div class="single-blog-wrapper">
+
+    <!-- Single Blog Post Thumb -->
+    <div class="single-blog-post-thumb">
+        <img th:src="@{images/bg1.jpg}" alt="" id="bgprincipal">
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <div class="regular-page-content-wrapper section-padding-80">
+                    <div class="regular-page-text">
+                        <h2>Cadastre-se agora</h2>
+                        <div class="row">
+                            <div class="col-md-12"
+                                 style="padding: 5%; background: #a7a7a775; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
+                                <h3>Login</h3>
+                                <form th:action="@{/login}" method="post" >
+                                    <div class="form-group">
+                                        <input type="text"  name="email" class="form-control" placeholder="Seu e-mail" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="senha" class="form-control" placeholder="Sua senha" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn essence-btn" value="Login">
+                                    </div>
+                                    <div class="form-group">
+                                        <a th:href="@{/login/cadastro}" class="ForgetPwd">Novo? Cadastre-se agora</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+</html>
