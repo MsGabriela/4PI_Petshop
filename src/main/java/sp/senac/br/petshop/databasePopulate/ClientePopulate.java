@@ -1,4 +1,4 @@
-package sp.senac.br.petshop.databasePopulate;
+package sp.senac.br.petshop.DatabasePopulate;
 
 import java.util.Date;
 import java.util.Random;

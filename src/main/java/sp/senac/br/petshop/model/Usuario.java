@@ -1,31 +1,36 @@
 package sp.senac.br.petshop.model;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+//import sp.senac.br.pet.SecurityConfig;
+//import sp.senac.br.pet.constraint.FieldMatch;
 
-@MappedSuperclass
-public abstract class Usuario{
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Set;
+
+
+
+
+@Entity
+@Table(name = "usuario")
+public abstract class Usuario implements UserDetails
+{
     
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    
-    private Long idUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)   
+    @Column(name = "idusuario")
+    private Long idUsuario;
 
     @NotBlank(message = "Preenchar o nome!")
     @Size(max = 100)
-    private String name;
+    private String nome;
 
     @NotBlank(message = "Preenchar o sobrenome!")
     @Size(max = 100)
@@ -34,96 +39,164 @@ public abstract class Usuario{
     @CPF(message = "CPF inválido!")
     private String CPF;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
     private Date dataNascimento;
 
     @NotBlank(message = "Preenchar o telefone!")
     private String telefone;
 
-    @Email(message = "Email inválido!")
+    
     @NotBlank(message = "Preenchar o Email!")
+    @Email(message = "Email inválido!")
     private String email;
 
+    @Transient
     private String ConfirmarEmail;
     
     private boolean ativo;
     private String sexo;
-
     
-    public String getSexo() {
+
+    @NotBlank(message = "Preencha a senha!")
+    @Column(name = "senha")
+    private String hashSenha;
+
+    @Transient
+    private String csenha;
+
+    // @OneToMany(mappedBy = "cliente", fetch = FetchType.Lazy)
+    // private Set<Pedido> pedidos;
+
+    @Column(name = "tipoacesso")
+    private int tipoAcesso;
+    
+    @OneToMany(mappedBy = "usuario")
+    private Set<Endereco> enderecos;
+
+    public Usuario() 
+    {
+        
+    }
+
+    public String getSexo() 
+    {
         return sexo;
     }
-    public void setSexo(String sexo) {
+
+
+    public void setSexo(String sexo) 
+    {
         this.sexo = sexo;
     }
-    public boolean isAtivo() {
+
+
+    public boolean getAtivo() 
+    {
         return ativo;
     }
-    public void setAtivo(boolean ativo) {
+
+
+    public void setAtivo(boolean ativo) 
+    {
         this.ativo = ativo;
     }
+
+
+    
     private String senha;
     private String ConfirmarSenha;
 
-    public Long getIdUser() {
-        return idUser;
+    public Long getIdUser() 
+    {
+        return idUsuario;
     }
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setIdUser(Long idUser) 
+    {
+        this.idUsuario = idUser;
     }
-    public String getName() {
-        return name;
+    public String getName() 
+    {
+        return nome;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) 
+    {
+        this.nome = name;
     }
-    public String getSobrenome() {
+    public String getSobrenome() 
+    {
         return sobrenome;
     }
-    public void setSobrenome(String sobrenome) {
+    public void setSobrenome(String sobrenome) 
+    {
         this.sobrenome = sobrenome;
     }
-    public String getCPF() {
+    public String getCPF() 
+    {
         return CPF;
     }
-    public void setCPF(String cPF) {
-        CPF = cPF;
+    public void setCPF(String cpf) 
+    {
+        CPF = cpf;
     }
-    public Date getDataNascimento() {
+    public Date getDataNascimento() 
+    {
         return dataNascimento;
     }
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) 
+    {
         this.dataNascimento = dataNascimento;
     }
-    public String getTelefone() {
+    public String getTelefone() 
+    {
         return telefone;
     }
-    public void setTelefone(String telefone) {
+    public void setTelefone(String telefone)
+    {
         this.telefone = telefone;
     }
-    public String getEmail() {
+    public String getEmail() 
+    {
         return email;
     }
-    public void setEmail(String email) {
+    public void setEmail(String email) 
+    {
         this.email = email;
     }
-    public String getConfirmarEmail() {
+    public String getConfirmarEmail() 
+    {
         return ConfirmarEmail;
     }
-    public void setConfirmarEmail(String confirmarEmail) {
-        ConfirmarEmail = confirmarEmail;
+    public void setConfirmarEmail(String confirmarEmail) 
+    {
+        this.ConfirmarEmail = confirmarEmail;
     }
-    public String getSenha() {
+    public String getHashSenha()
+    {
+        return hashSenha;
+    }
+    public void  setHashSenha(String hashsenha)
+    {
+        this.hashSenha = hashsenha;
+    }
+
+    public String getSenha() 
+    {
         return senha;
     }
-    public void setSenha(String senha) {
+
+    public void setSenha(String senha) 
+    {
         this.senha = senha;
     }
-    public String getConfirmarSenha() {
+
+    public String getConfirmarSenha() 
+    {
         return ConfirmarSenha;
     }
-    public void setConfirmarSenha(String confirmarSenha) {
+    
+    public void setConfirmarSenha(String confirmarSenha) 
+    {
         ConfirmarSenha = confirmarSenha;
     }
 

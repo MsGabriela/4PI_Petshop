@@ -94,7 +94,7 @@ public class ClientesController {
 
             Cliente cAux = clienteRepository.getById(id);
 
-            cAux.setAtivo(c.isAtivo());
+            cAux.setAtivo(c.getAtivo());
             cAux.setCPF(c.getCPF());
             cAux.setDataNascimento(c.getDataNascimento());
             cAux.setEmail(c.getEmail());
