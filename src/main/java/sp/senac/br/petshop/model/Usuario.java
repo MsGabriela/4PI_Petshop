@@ -22,7 +22,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
-public abstract class Usuario implements UserDetails
+public  class Usuario implements UserDetails
 {
     
     @Id
@@ -80,6 +80,15 @@ public abstract class Usuario implements UserDetails
     {
         
     }
+    public String getNome() 
+    {
+        return nome;
+    }
+
+    public void setNome(String nome) 
+    {
+        this.nome = nome;
+    }
 
     public String getSexo() 
     {
@@ -104,6 +113,15 @@ public abstract class Usuario implements UserDetails
         this.ativo = ativo;
     }
 
+    public int getTipoAcesso() 
+    {
+        return tipoAcesso;
+    }
+
+    public void setTipoAcesso(int tipoAcesso) 
+    {
+        this.tipoAcesso = tipoAcesso;
+    }
 
     
     private String senha;
@@ -246,6 +264,15 @@ public abstract class Usuario implements UserDetails
         ConfirmarSenha = confirmarSenha;
     }
     
+    public Set<Endereco> getEnderecos() 
+    {
+        return enderecos;
+    }
+
+    public void setEnderecos(Set<Endereco> enderecos) 
+    {
+        this.enderecos = enderecos;
+    }
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() 
