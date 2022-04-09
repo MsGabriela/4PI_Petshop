@@ -1,201 +1,201 @@
-package sp.senac.br.petshop.controller;
+// package sp.senac.br.petshop.controller;
 
-import java.util.Set;
+// import java.util.Set;
 
-import javax.validation.Valid;
+// import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+// import org.springframework.beans.factory.annotation.Autowired;
+// //import org.springframework.security.core.Authentication;
+// import org.springframework.validation.BindingResult;
+// import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.web.bind.annotation.ModelAttribute;
+// import org.springframework.web.bind.annotation.PathVariable;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RestController;
+// import org.springframework.web.servlet.ModelAndView;
 
-import sp.senac.br.petshop.model.Endereco;
-import sp.senac.br.petshop.model.Pedido;
-import sp.senac.br.petshop.model.Usuario;
-import sp.senac.br.petshop.repository.EnderecoRepository;
-import sp.senac.br.petshop.repository.PedidoRepository;
-import sp.senac.br.petshop.repository.UsuarioRepository;
+// import sp.senac.br.petshop.model.Endereco;
+// import sp.senac.br.petshop.model.Pedido;
+// import sp.senac.br.petshop.model.Usuario;
+// import sp.senac.br.petshop.repository.EnderecoRepository;
+// import sp.senac.br.petshop.repository.PedidoRepository;
+// import sp.senac.br.petshop.repository.UsuarioRepository;
 
-@RestController
-@RequestMapping("/login")
-public class UsuarioController 
-{
+// @RestController
+// @RequestMapping("/login")
+// public class UsuarioController 
+// {
     
     
-        @Autowired
-        private UsuarioRepository usuarioRepository;
+//         @Autowired
+//         private UsuarioRepository usuarioRepository;
 
-        @Autowired
-        private PedidoRepository  pedidoRepository;
+//         @Autowired
+//         private PedidoRepository  pedidoRepository;
 
-        @Autowired
-        private EnderecoRepository enderecoRepository;
+//         @Autowired
+//         private EnderecoRepository enderecoRepository;
 
-        @GetMapping
-        public ModelAndView login(Authentication authentication)
-        {
-            if(authentication != null){
-                Usuario u = (Usuario)authentication.getPrincipal();
+//         // @GetMapping
+//         // public ModelAndView login(Authentication authentication)
+//         // {
+//         //     if(authentication != null){
+//         //         Usuario u = (Usuario)authentication.getPrincipal();
     
-                u.setEnderecos(enderecoRepository.buscaEnderecos(u));
+//         //         u.setEnderecos(enderecoRepository.buscaEnderecos(u));
     
-                ModelAndView mv = new ModelAndView("redirect:/login/minhaconta");
-                mv.addObject("usuario", u);
+//         //         ModelAndView mv = new ModelAndView("redirect:/login/minhaconta");
+//         //         mv.addObject("usuario", u);
     
-                return mv;
-            }
+//         //         return mv;
+//         //     }
     
-            return new ModelAndView("login");
-        }
+//         //     return new ModelAndView("login");
+//         // }
 
-        @GetMapping("/cadastro")
-        public ModelAndView cadastrar()
-        {
-            ModelAndView mv = new ModelAndView("cadastro");
-            mv.addObject("usuario", new Usuario());
-            return mv;
-        }
+//         @GetMapping("/cadastro")
+//         public ModelAndView cadastrar()
+//         {
+//             ModelAndView mv = new ModelAndView("cadastro");
+//             mv.addObject("usuario", new Usuario());
+//             return mv;
+//         }
 
-        @PostMapping("/cadastro")
-         public ModelAndView cadastrar(
-         @ModelAttribute("usuario")  @Valid Usuario u,
-         BindingResult bindingResult)
-        { 
-            //Concluir o cadastro
+//         @PostMapping("/cadastro")
+//          public ModelAndView cadastrar(
+//          @ModelAttribute("usuario")  @Valid Usuario u,
+//          BindingResult bindingResult)
+//         { 
+//             //Concluir o cadastro
 
-            if(bindingResult.hasErrors())
-            {
-                return new ModelAndView("cadastro");
-            }
-            else 
-            {
-                ModelAndView mv = new ModelAndView("redirect:/index");
-                u.setTipoAcesso(1);
-                u.setAtivo(true);
-                u.setNome(u.getNome() + " " + u.getSobrenome());
-                u.setSenha(u.getHashSenha());
-                usuarioRepository.save(u); 
+//             if(bindingResult.hasErrors())
+//             {
+//                 return new ModelAndView("cadastro");
+//             }
+//             else 
+//             {
+//                 ModelAndView mv = new ModelAndView("redirect:/index");
+//                 u.setTipoAcesso(1);
+//                 u.setAtivo(true);
+//                 u.setNome(u.getNome() + " " + u.getSobrenome());
+//                 u.setSenha(u.getHashSenha());
+//                 usuarioRepository.save(u); 
 
-                return mv;
-            }
-        }
+//                 return mv;
+//             }
+//         }
 
-    @GetMapping("/Alterar/{id}")
-    public ModelAndView alterar(@PathVariable int id)
-    {
-        ModelAndView mv = new ModelAndView("cadastro");
+//     @GetMapping("/Alterar/{id}")
+//     public ModelAndView alterar(@PathVariable int id)
+//     {
+//         ModelAndView mv = new ModelAndView("cadastro");
 
-        Usuario u = usuarioRepository.getOne(id);
+//         Usuario u = usuarioRepository.getOne(id);
 
-        int espaco = u.getNome().indexOf(" ");
+//         int espaco = u.getNome().indexOf(" ");
 
-        u.setSobrenome(u.getNome().substring(espaco + 1));
-        u.setNome(u.getNome().substring(0, espaco));
+//         u.setSobrenome(u.getNome().substring(espaco + 1));
+//         u.setNome(u.getNome().substring(0, espaco));
 
-        mv.addObject("usuario", u);
-        return mv;
-    }
+//         mv.addObject("usuario", u);
+//         return mv;
+//     }
 
 
-    @PostMapping("/Alterar/{id}")
-    public ModelAndView alterar(@PathVariable int id,
-                                @ModelAttribute("usuario")  @Valid Usuario u,
-                                BindingResult bindingResult, Authentication authentication)
-    {
-        if(bindingResult.hasErrors())
-        {
-            return new ModelAndView("cadastro");
-        }
-        else
-        {
-            ModelAndView mv = new ModelAndView("redirect:/login");
+//     // @PostMapping("/Alterar/{id}")
+//     // public ModelAndView alterar(@PathVariable int id,
+//     //                             @ModelAttribute("usuario")  @Valid Usuario u,
+//     //                             BindingResult bindingResult, Authentication authentication)
+//     // {
+//     //     if(bindingResult.hasErrors())
+//     //     {
+//     //         return new ModelAndView("cadastro");
+//     //     }
+//     //     else
+//     //     {
+//     //         ModelAndView mv = new ModelAndView("redirect:/login");
 
-            Usuario user = usuarioRepository.getOne(id);
-            user.setNome(u.getNome() + " " + u.getSobrenome());
-            user.setSobrenome(u.getSobrenome());
-            user.setSenha(u.getHashSenha());
-            user.setCPF(u.getCPF());
-            user.setEmail(u.getEmail());
-            user.setDataNascimento(u.getDataNascimento());
-            user.setSexo(u.getSexo());
-            user.setTelefone(u.getTelefone());
+//     //         Usuario user = usuarioRepository.getOne(id);
+//     //         user.setNome(u.getNome() + " " + u.getSobrenome());
+//     //         user.setSobrenome(u.getSobrenome());
+//     //         user.setSenha(u.getHashSenha());
+//     //         user.setCPF(u.getCPF());
+//     //         user.setEmail(u.getEmail());
+//     //         user.setDataNascimento(u.getDataNascimento());
+//     //         user.setSexo(u.getSexo());
+//     //         user.setTelefone(u.getTelefone());
 
-            usuarioRepository.save(user);
+//     //         usuarioRepository.save(user);
 
-            authentication.setAuthenticated(false);
+//     //         authentication.setAuthenticated(false);
 
-            return mv;
-        }
-    }
+//     //         return mv;
+//     //     }
+//     // }
 
-    @GetMapping("/minhaconta")
-    public ModelAndView minhaconta(Authentication authentication) 
-    { 
-        //Mostrar o formulário de cadastro
+//     @GetMapping("/minhaconta")
+//     public ModelAndView minhaconta(Authentication authentication) 
+//     { 
+//         //Mostrar o formulário de cadastro
         
-        if(authentication != null)
-        {
-            Usuario u = (Usuario)authentication.getPrincipal();
-            u.setEnderecos(enderecoRepository.buscaEnderecos(u));
-            Set<Pedido> pedidos = pedidoRepository.buscaPedidosUsuario(u);
-            ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos).addObject("usuario", u);
-            return mv;
-        }        
-        return new ModelAndView("login");
-    }
+//         if(authentication != null)
+//         {
+//             Usuario u = (Usuario)authentication.getPrincipal();
+//             u.setEnderecos(enderecoRepository.buscaEnderecos(u));
+//             Set<Pedido> pedidos = pedidoRepository.buscaPedidosUsuario(u);
+//             ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos).addObject("usuario", u);
+//             return mv;
+//         }        
+//         return new ModelAndView("login");
+//     }
 
-    @GetMapping("/detalhespedido/{id}")
-    public ModelAndView pedidos(@PathVariable int id, Authentication authentication)
-     { 
-         //Mostrar o formulário de cadastro
+//     @GetMapping("/detalhespedido/{id}")
+//     public ModelAndView pedidos(@PathVariable int id, Authentication authentication)
+//      { 
+//          //Mostrar o formulário de cadastro
 
-        System.out.println("eWOKEWQIEWEWq");
-        if(authentication != null)
-        {
-            Usuario u = (Usuario)authentication.getPrincipal();
-            u.setEnderecos(enderecoRepository.buscaEnderecos(u));
-            Pedido pedido = pedidoRepository.getOne(id);
-            ModelAndView mv = new ModelAndView("detalhepedido").addObject("pedido", pedido).addObject("usuario", u);
-            return mv;
-        }        
-        return new ModelAndView("login");
-    }
+//         System.out.println("eWOKEWQIEWEWq");
+//         if(authentication != null)
+//         {
+//             Usuario u = (Usuario)authentication.getPrincipal();
+//             u.setEnderecos(enderecoRepository.buscaEnderecos(u));
+//             Pedido pedido = pedidoRepository.getOne(id);
+//             ModelAndView mv = new ModelAndView("detalhepedido").addObject("pedido", pedido).addObject("usuario", u);
+//             return mv;
+//         }        
+//         return new ModelAndView("login");
+//     }
 
-    @GetMapping("/endereco")
-    public ModelAndView endereco()
-    {
-        ModelAndView mv = new ModelAndView("alterarEndereco");
-        mv.addObject("endereco", new Endereco());
-        return mv;
-    }
+//     @GetMapping("/endereco")
+//     public ModelAndView endereco()
+//     {
+//         ModelAndView mv = new ModelAndView("alterarEndereco");
+//         mv.addObject("endereco", new Endereco());
+//         return mv;
+//     }
 
-    @PostMapping("/endereco")
-    public ModelAndView endereco(
-            @ModelAttribute("endereco") @Valid Endereco e,
-            BindingResult bindingResult, Authentication authentication)
+//     @PostMapping("/endereco")
+//     public ModelAndView endereco(
+//             @ModelAttribute("endereco") @Valid Endereco e,
+//             BindingResult bindingResult, Authentication authentication)
             
-    {
+//     {
 
-        if(bindingResult.hasErrors())
-        {
-            return new ModelAndView("alterarEndereco");
-        }
-        else if(authentication != null)
-        {
-            Usuario u = (Usuario) authentication.getPrincipal();
-            e.setUsuario(u);
+//         if(bindingResult.hasErrors())
+//         {
+//             return new ModelAndView("alterarEndereco");
+//         }
+//         else if(authentication != null)
+//         {
+//             Usuario u = (Usuario) authentication.getPrincipal();
+//             e.setUsuario(u);
 
-            enderecoRepository.save(e);
+//             enderecoRepository.save(e);
 
-            return new ModelAndView("redirect:/login");
-        }
+//             return new ModelAndView("redirect:/login");
+//         }
 
-        return new ModelAndView("redirect:/login");
-    }
-}
+//         return new ModelAndView("redirect:/login");
+//     }
+// }

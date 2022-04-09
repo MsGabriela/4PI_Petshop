@@ -76,8 +76,8 @@ public class Produto implements Serializable
 
     private boolean ativo;
 
-    @ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
-    private Set<Pedido> pedidos;
+    // @ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
+    // private Set<Pedido> pedidos;
 
     // @NotNull(message = "Selecione uma categoria!")
     // @ManyToOne(fetch = FetchType.LAZY)
@@ -185,12 +185,12 @@ public class Produto implements Serializable
         this.ativo = ativo;
     }
 
-    public Set<Pedido> getPedidos() {
-        return pedidos;
-    }
+    // public Set<Pedido> getPedidos() {
+    //     return pedidos;
+    // }
 
-    public void setPedidos(Set<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
+    // public void setPedidos(Set<Pedido> pedidos) {
+    //     this.pedidos = pedidos;
+    // }
     
 }

@@ -38,6 +38,7 @@ public class ClientePopulate implements CommandLineRunner{
             c.setSexo("Masculino");
             c.setTelefone("65987458");
             c.setCPF("61266859039");
+            c.setHashSenha("123456");
             
             clienteRepository.save(c);
         }

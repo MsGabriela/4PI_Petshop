@@ -22,7 +22,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
-public abstract class Usuario 
+public  class Usuario 
 {
 
     @Id
@@ -61,7 +61,7 @@ public abstract class Usuario
 
 
     @NotBlank(message = "Preencha a senha!")
-    //@Column(name = "senha")
+    @Column(name = "senha")
     private String hashSenha;
 
     @Transient
