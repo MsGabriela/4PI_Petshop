@@ -1,4 +1,4 @@
-package sp.senac.br.petshop.databasePopulate;
+package sp.senac.br.petshop.DatabasePopulate;
 
 import java.util.Date;
 import java.util.Random;
@@ -33,11 +33,12 @@ public class ClientePopulate implements CommandLineRunner{
             c.setAtivo(rand.nextBoolean());
             c.setDataNascimento(new Date());
             c.setEmail("email@email.com");
-            c.setNome("Cliente " + i);
+            c.setName("Cliente " + 1);
             c.setSobrenome("Teste");
             c.setSexo("Masculino");
             c.setTelefone("65987458");
             c.setCPF("61266859039");
+            c.setHashSenha("123456");
             
             clienteRepository.save(c);
         }

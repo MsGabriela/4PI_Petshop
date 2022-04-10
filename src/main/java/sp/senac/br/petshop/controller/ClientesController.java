@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -99,7 +98,7 @@ public class ClientesController {
             cAux.setCPF(c.getCPF());
             cAux.setDataNascimento(c.getDataNascimento());
             cAux.setEmail(c.getEmail());
-            cAux.setNome(c.getNome());
+            cAux.setName(c.getName());
             cAux.setSexo(c.getSexo());
             cAux.setSobrenome(c.getSobrenome());
             cAux.setTelefone(c.getTelefone());

@@ -6,12 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import sp.senac.br.petshop.model.Endereco;
+import sp.senac.br.petshop.model.Pedido;
 import sp.senac.br.petshop.model.Usuario;
 
-public interface EnderecoRepository extends JpaRepository<Endereco, Integer>
+public interface PedidoRepository extends JpaRepository<Pedido, Integer>
 {
-    @Query("SELECT e, u FROM Endereco e JOIN e.usuario u WHERE e.usuario = :u")
-    Set<Endereco> buscaEnderecos(@Param("u") Usuario u);
-
+    @Query("SELECT p FROM Pedido p WHERE p.cliente = :u")
+    Set<Pedido> buscaPedidosUsuario(@Param("u") Usuario u);
 }

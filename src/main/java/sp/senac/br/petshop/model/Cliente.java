@@ -1,150 +1,89 @@
 package sp.senac.br.petshop.model;
 
-import java.util.Date;
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.Set;
 
-import org.hibernate.validator.constraints.br.CPF;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.*;
 
-import org.springframework.format.annotation.DateTimeFormat;
+//import org.springframework.security.core.GrantedAuthority;
+
 
 @Entity
 @Table(name = "Clientes")
-public class Cliente{
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @NotBlank(message = "Preenchar o nome!")
-    @Size(max = 100)
-    private String nome;
-
-    @NotBlank(message = "Preenchar o sobrenome!")
-    @Size(max = 100)
-    private String sobrenome;
-
-    @CPF(message = "CPF inválido!")
-    private String CPF;
-
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @PastOrPresent
-    private Date dataNascimento;
-
-    @NotBlank(message = "Preenchar o telefone!")
-    private String telefone;
-
-    @Email(message = "Email inválido!")
-    @NotBlank(message = "Preenchar o Email!")
-    private String email;
-    private String sexo;
-    private boolean ativo;
-
+public class Cliente extends Usuario {
     @OneToMany(mappedBy = "cliente")
     private Set<Endereco> enderecos;
 
-    public Cliente(String nome, 
-                   String sobrenome, 
-                   Date dataNascimento, 
-                   String telefone, 
-                   String email, 
-                   String sexo,
-                   boolean ativo,
-                   String CPF,
-                   Set<Endereco> enderecos) {
+    public Cliente()
+    {
 
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.dataNascimento = dataNascimento;
-        this.telefone = telefone;
-        this.email = email;
-        this.sexo = sexo;
-        this.ativo = ativo;
-        this.CPF = CPF;
+    }
+
+    public Cliente(Endereco endereco) 
+    {
+        super();
+        enderecos.add(endereco);
+    }
+
+    public Set<Endereco> getEnderecos() 
+    {
+        return enderecos;
+    }
+
+    public void setEnderecos(Set<Endereco> enderecos) 
+    {
         this.enderecos = enderecos;
     }
 
-    public Cliente(){
-        enderecos = new HashSet<Endereco>();
-    }
+    // @Override
+    // public Collection<? extends GrantedAuthority> getAuthorities() 
+    // {
+    //     // TODO Auto-generated method stub
+    //     return null;
+    // }
 
-    public int getId()
-    {
-        return id;
-    }
+    // @Override
+    // public String getPassword() 
+    // {
+    //     // TODO Auto-generated method stub
+    //     return null;
+    // }
 
-    public String getNome() {
-        return nome;
-    }
+    // @Override
+    // public String getUsername() 
+    // {
+    //     // TODO Auto-generated method stub
+    //     return null;
+    // }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    // @Override
+    // public boolean isAccountNonExpired() 
+    // {
+    //     // TODO Auto-generated method stub
+    //     return false;
+    // }
 
-    public String getSobrenome() {
-        return sobrenome;
-    }
+    // @Override
+    // public boolean isAccountNonLocked() 
+    // {
+    //     // TODO Auto-generated method stub
+    //     return false;
+    // }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
+    // @Override
+    // public boolean isCredentialsNonExpired() 
+    // {
+    //     // TODO Auto-generated method stub
+    //     return false;
+    // }
 
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
+    // @Override
+    // public boolean isEnabled() 
+    // {
+    //     // TODO Auto-generated method stub
+    //     return false;
+    // }
 
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public String getCPF()
-    {
-        return this.CPF;
-    }
-
-    public void setCPF(String CPF)
-    {
-        this.CPF = CPF;
-    }
 }
