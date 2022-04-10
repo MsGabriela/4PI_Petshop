@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+
+<body>
+<div layout:fragment="conteudo">
+
+<!--Opções de minha conta-->
+    <!-- ##### Meus dados ##### -->
+    <div class="checkout_area section-padding-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="card-columns d-flex justify-content-center">
+                            <div class="card" style="width: 30rem;">
+                              <div class="card-body">
+                                    <h5 class="card-title">Meus dados</h5>
+                                    <label><span th:text="${usuario.nome}"></span></label>
+                                    <p class="card-text" id="email">E-mail: <span th:text="${usuario.email}"></span></p>
+                                    <p class="card-text" id="dataNascimento">Data de nascimento: <span th:text="${usuario.dataNascimento}"></span></p>
+                                    <p class="card-text" id="CPF">CPF: <span th:text="${usuario.CPF}"></span></p>
+                                    <p class="card-text" id="telefone">Telefone: <span th:text="${usuario.telefone}"></span></p>
+                                    <a th:href="@{/login/Alterar/{id}(id=${usuario.idusuario})}" class="card-link">Alterar dados</a>
+                                    <a th:href="@{/logout}">Logout</a>
+    
+                                </div>
+                            </div>
+
+                            <div class="card ml-3" style="width: 30rem;">
+                              <div class="card-body">
+                                    <h5 class="card-title">Meus endereços</h5>
+                                    <div th:each="endereco : ${usuario.enderecos}">
+                                        <label for="first_adress" th:text="${endereco.apelido}"></label>
+                                        <p class="card-text" th:text="${endereco.rua} + ', ' + ${endereco.numero}"></p>
+                                    </div>
+                                    <a th:href="@{/login/endereco}" class="card-link">Clique aqui para adicionar</a>
+    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <!-- ##### Meus pedidos ##### -->
+                        <div class="checkout_details_area mt-50 clearfix" >
+                            <h5>Meus pedidos</h5> 
+                            <a th:href="@{/login/detalhespedido/{id}(id=${pedido.idPedido})}" th:each="pedido : ${pedidos}">
+                            <div class="card col-12 mb-2" style="width: 68rem;" >
+                                <div class="card-body">
+                                  <h5 class="card-title" th:text="'Pedido #' + ${pedido.idPedido} + ${pedido.status == 0 ? ' - Não validado' : ' - Validado'}">Pedido #1234</h5>
+                                    <ul class="order-details-form mb-4">
+                                        <li><span th:text="'Data do pedido: ' + ${pedido.data}"></span></li>
+                                        <li><span>Frete</span> <span>Grátis</span></li>
+                                        <li><span>Total</span> <span th:text="'R$' + ${pedido.precoVenda}">R$59.90</span></li>
+                                        <li><span>Forma de pagamento</span> <span th:text="${pedido.idTipoPagamento == 2 ? 'Boleto Bancário' : 'PayPal'}"></span></li>
+                                    </ul>
+                                
+                                </div>
+                            </div>
+                            </a>
+                        
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>  
+
+
+
+    
+</div>
+</body>
+
+</html>

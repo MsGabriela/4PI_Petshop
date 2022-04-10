@@ -19,7 +19,7 @@ public class Endereco
 {
     
     @Id
-    @Column(name = "idenderecoentrega")
+    @Column(name = "idendereco")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 

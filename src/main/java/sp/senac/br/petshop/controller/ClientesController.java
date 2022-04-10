@@ -23,8 +23,8 @@ public class ClientesController {
     @Autowired
     private ClienteRepository clienteRepository;
     
-    // @Autowired
-    // private EnderecoRepository enderecoRepository;
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     @GetMapping("Index")
     public ModelAndView index()

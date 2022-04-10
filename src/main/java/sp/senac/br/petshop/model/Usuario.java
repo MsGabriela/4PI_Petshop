@@ -3,12 +3,12 @@ package sp.senac.br.petshop.model;
 
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
-// import org.springframework.security.core.GrantedAuthority;
-// import org.springframework.security.core.userdetails.UserDetails;
-//import sp.senac.br.pet.SecurityConfig;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 //import sp.senac.br.pet.constraint.FieldMatch;
 
-// import sp.senac.br.petshop.Validator.SecurityConfig;
+import sp.senac.br.petshop.Validator.SecurityConfig;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -22,7 +22,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
-public abstract class Usuario 
+public abstract class Usuario implements UserDetails
 {
 
     @Id
@@ -67,8 +67,8 @@ public abstract class Usuario
     @Transient
     private String csenha;
 
-    // @OneToMany(mappedBy = "cliente", fetch = FetchType.Lazy)
-    // private Set<Pedido> pedidos;
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private Set<Pedido> pedidos;
 
     @Column(name = "tipoacesso")
     private int tipoAcesso;
@@ -237,19 +237,19 @@ public abstract class Usuario
     }
 
 
-    // public void setSenha(String senha)
-    // {
-    //     this.hashSenha =
-    //             SecurityConfig.bcryptPasswordEncoder()
-    //                     .encode(senha);
-    // }
+    public void setSenha(String senha)
+    {
+        this.hashSenha =
+                SecurityConfig.bcryptPasswordEncoder()
+                        .encode(senha);
+    }
 
 
-    // public void setCsenha(String csenha)
-    // {
-    //     this.csenha = SecurityConfig.bcryptPasswordEncoder()
-    //             .encode(csenha);
-    // }
+    public void setCsenha(String csenha)
+    {
+        this.csenha = SecurityConfig.bcryptPasswordEncoder()
+                .encode(csenha);
+    }
 
 
 
@@ -274,46 +274,46 @@ public abstract class Usuario
         this.enderecos = enderecos;
     }
 
-    // @Override
-    // public Collection<? extends GrantedAuthority> getAuthorities()
-    // {
-    //     return null;
-    // }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities()
+    {
+        return null;
+    }
 
-    // @Override
-    // public String getPassword()
-    // {
-    //     return getHashSenha();
-    // }
+    @Override
+    public String getPassword()
+    {
+        return getHashSenha();
+    }
 
-    // @Override
-    // public String getUsername()
-    // {
-    //     return email;
-    // }
+    @Override
+    public String getUsername()
+    {
+        return email;
+    }
 
-    // @Override
-    // public boolean isAccountNonExpired()
-    // {
-    //     return true;
-    // }
+    @Override
+    public boolean isAccountNonExpired()
+    {
+        return true;
+    }
 
-    // @Override
-    // public boolean isAccountNonLocked()
-    // {
-    //     return true;
-    // }
+    @Override
+    public boolean isAccountNonLocked()
+    {
+        return true;
+    }
 
-    // @Override
-    // public boolean isCredentialsNonExpired()
-    // {
-    //     return true;
-    // }
+    @Override
+    public boolean isCredentialsNonExpired()
+    {
+        return true;
+    }
 
-    // @Override
-    // public boolean isEnabled()
-    // {
-    //     return true;
-    // }
+    @Override
+    public boolean isEnabled()
+    {
+        return true;
+    }
 
 }
