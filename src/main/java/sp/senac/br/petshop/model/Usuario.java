@@ -42,6 +42,7 @@ public abstract class Usuario implements UserDetails
     private String CPF;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "dataNascimento")
     @PastOrPresent
     private Date dataNascimento;
 
@@ -54,7 +55,9 @@ public abstract class Usuario implements UserDetails
     private String email;
 
     @Transient
-    private String ConfirmarEmail;
+    private String cemail;
+
+  
 
     private boolean ativo;
     private String sexo;
@@ -66,6 +69,8 @@ public abstract class Usuario implements UserDetails
 
     @Transient
     private String csenha;
+
+    
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
@@ -124,8 +129,7 @@ public abstract class Usuario implements UserDetails
     }
 
 
-    private String senha;
-    private String ConfirmarSenha;
+
 
     public Long getIdUser()
     {
@@ -207,16 +211,7 @@ public abstract class Usuario implements UserDetails
     }
 
 
-    public String getConfirmarEmail()
-    {
-        return ConfirmarEmail;
-    }
 
-
-    public void setConfirmarEmail(String confirmarEmail)
-    {
-        this.ConfirmarEmail = confirmarEmail;
-    }
 
 
     public String getHashSenha()
@@ -231,37 +226,13 @@ public abstract class Usuario implements UserDetails
     }
 
 
-    public String getSenha()
-    {
-        return senha;
-    }
+  
 
 
     public void setSenha(String senha)
     {
         this.hashSenha =
-                SecurityConfig.bcryptPasswordEncoder()
-                        .encode(senha);
-    }
-
-
-    public void setCsenha(String csenha)
-    {
-        this.csenha = SecurityConfig.bcryptPasswordEncoder()
-                .encode(csenha);
-    }
-
-
-
-    public String getConfirmarSenha()
-    {
-        return ConfirmarSenha;
-    }
-
-
-    public void setConfirmarSenha(String confirmarSenha)
-    {
-        ConfirmarSenha = confirmarSenha;
+                SecurityConfig.bcryptPasswordEncoder().encode(senha);
     }
 
     public Set<Endereco> getEnderecos()
@@ -272,6 +243,37 @@ public abstract class Usuario implements UserDetails
     public void setEnderecos(Set<Endereco> enderecos)
     {
         this.enderecos = enderecos;
+    }
+    public Long getIdUsuario() 
+    {
+        return idUsuario;
+    }
+    public void setIdUsuario(Long idUsuario) 
+    {
+        this.idUsuario = idUsuario;
+    }
+    public String getCemail() {
+        return cemail;
+    }
+    public void setCemail(String cemail) 
+    {
+        this.cemail = cemail;
+    }
+    public void setCsenha(String csenha)
+    {
+        this.csenha = SecurityConfig.bcryptPasswordEncoder().encode(csenha);
+    }
+    public String getCsenha() 
+    {
+        return csenha;
+    }
+    public Set<Pedido> getPedidos()
+     {
+        return pedidos;
+    }
+    public void setPedidos(Set<Pedido> pedidos) 
+    {
+        this.pedidos = pedidos;
     }
 
     @Override

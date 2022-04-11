@@ -74,7 +74,7 @@
                                 <img class="hover-img" th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt=""><!-- img em hover -->
                             </div>
                             <div class="product-description">
-                                <span th:text="${produto.fabricante}">Pet Tades</span> <!-- empresa do produto -->
+                                <span th:text="${produto.fabricante}">Petshop Zootopia</span> <!-- empresa do produto -->
                                 <a th:href="@{/produto/detalhe/{id}(id=${produto.idProduto})}">
                                     <h6 th:text="${produto.nome}">Snack Proteico</h6> <!-- nome do produto -->
                                 </a>
