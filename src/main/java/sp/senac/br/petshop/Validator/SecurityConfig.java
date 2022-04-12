@@ -57,8 +57,9 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter
                     .loginPage("/login")
                     .usernameParameter("email")
                     .passwordParameter("senha")
+                    .failureUrl("/login/error")
                     .defaultSuccessUrl("/admin").permitAll()
-                    .failureHandler(authenticationFailureHandler())
+                    //.failureHandler(authenticationFailureHandler())
                 .and()
                 .logout()
                     .logoutUrl("/logout")
@@ -66,10 +67,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter
                     .invalidateHttpSession(true).deleteCookies("JSESSIONID");
     }
 
-    @Bean
-    public static AuthenticationFailureHandler authenticationFailureHandler() 
-    {
-        return new CustomAuthenticationFailureHandler();
-    }
+    // @Bean
+    // public static AuthenticationFailureHandler authenticationFailureHandler() 
+    // {
+    //     return new CustomAuthenticationFailureHandler();
+    // }
 
 }

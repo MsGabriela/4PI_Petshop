@@ -26,8 +26,6 @@ import javax.validation.Valid;
 @RequestMapping("/login")
 public class UsuarioController 
 {
-    
-    
         @Autowired
         private ClienteRepository clienteRepository;
 
@@ -52,8 +50,17 @@ public class UsuarioController
                 return mv;
             }
 
-            return new ModelAndView("/login");
-                
+            return new ModelAndView("/login"); 
+        }
+
+        @GetMapping("/error")
+        public ModelAndView login()
+        {
+            ModelAndView mv = new ModelAndView("/login");
+
+            mv.addObject("exception", "Usuário ou senha inválidos!");
+
+            return mv;
         }
 
         @GetMapping("/Cadastro")
