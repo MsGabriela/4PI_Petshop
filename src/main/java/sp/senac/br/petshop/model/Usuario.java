@@ -12,7 +12,6 @@ import sp.senac.br.petshop.Validator.SecurityConfig;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;

@@ -1,6 +1,5 @@
 package sp.senac.br.petshop.model;
 
-import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Entity;
