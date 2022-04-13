@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sp.senac.br.petshop.model.Cliente;
 import sp.senac.br.petshop.repository.ClienteRepository;
-import sp.senac.br.petshop.repository.EnderecoRepository;
 
 @RestController
 public class ClientesController {
@@ -23,8 +22,6 @@ public class ClientesController {
     @Autowired
     private ClienteRepository clienteRepository;
     
-    @Autowired
-    private EnderecoRepository enderecoRepository;
 
     @GetMapping("Index")
     public ModelAndView index()
