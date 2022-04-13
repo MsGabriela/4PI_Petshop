@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html layout:decorate="~{back_template.html}">
+    <div layout:fragment="conteudo">
+        <div class="page-container">
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="au-card chart-percent-card">
+                                    <div class="container">
+                                        <h1 style="text-align: center">Gerenciamento de Produtos :)</h1>
+
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Ações</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="produto : ${produtos}">
+                                                <td th:text="${produto.idProduto}"></td>
+                                                <td th:text="${produto.nome}"></td>
+                                                <td th:text="${produto.ativo == 1? 'Disponivel' : 'Indisponivel'}" th:style="${produto.ativo == 1 ? 'color: green;' : 'color: red;'}"></td>
+                                                <td>
+                                                    <a class="btn btn-primary col-md-4" th:href="@{/admin/alterar/{id}(id=${produto.idProduto})}">Alterar</a>
+                                                    &nbsp;&nbsp;
+                                                    <a class="btn btn-danger col-md-4 excluiProduto" th:attr="idProduto = ${produto.idProduto}, nomeProduto = ${produto.nome}" th:href="@{/admin/excluir/{id}(id=${produto.idProduto})}">Desabilitar</a>
+
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <a class="btn btn-success" th:href="@{/admin/adicionar}">Adicionar Novo</a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</html>

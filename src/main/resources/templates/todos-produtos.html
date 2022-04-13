@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+<body>
+<div layout:fragment="conteudo">
+   
+    <div class="breadcumb_area bg-img" style="background-image: url(/images/bg-img/breadcumb.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>todos os produtos</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ##### Shop Grid Area Start ##### -->
+    <section class="shop_grid_area section-padding-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="shop_sidebar_area">
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget catagory mb-50">
+                            <!-- Widget Title -->
+                            <h6 class="widget-title mb-30">Categorias</h6>
+
+                            <!--  Catagories  -->
+                            <div class="catagories-menu">
+                                <ul id="menu-content2" class="menu-content collapse show">
+                                    <!-- Single Item -->
+                                    <li>
+                                        <ul class="sub-menu collapse show" id="clothing">
+                                            <li><a href="#" onClick="filtrar('categoria', this.innerHTML)">Todas</a></li>
+                                            <li th:each="categoria : ${categorias}"><a href="#" onClick="filtrar('categoria', this.innerHTML)" th:text="${categoria.nome}"></a></li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget price mb-50">
+                            <!-- Widget Title -->
+                            <h6 class="widget-title mb-30">Filtrar por</h6>
+                            <!-- Widget Title 2 -->
+                            <p class="widget-title2 mb-30">Preço</p>
+
+                            <div class="widget-desc">
+                                <div class="slider-range">
+                                    <div data-min="0" data-max="500" data-unit="R$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="500" data-label-result="Entre:">
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    </div>
+                                    <div class="range-price">Entre: R$0.00 - R$500.00</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="widget brands mb-50">
+                            <p class="widget-title2 mb-30">Marcas</p>
+                            <div class="widget-desc">
+                                <ul>
+                                    <li th:each="produto : ${produtos}"><a href="#" onClick="filtrar('marca', this.innerHTML)" th:text="${produto.fabricante}"></a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="shop_grid_product_area">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product-topbar d-flex align-items-center justify-content-between">
+                                    <!-- Total Products -->
+                                    <div class="total-products">
+                                        <p><span id="produtos-encontrados">1</span> produtos encontrados</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="lista-produtos">
+
+                            <div class="col-12 col-sm-6 col-lg-4" th:each="produto : ${produtos}">
+                                <div class="single-product-wrapper">
+                                    <div class="product-img">
+                                        <a th:href="@{/produto/detalhe/{id}(id=${produto.idProduto})}"><img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt="" th:style="${produto.estoque <= 0} ? 'filter: grayscale(1)' : ''"></a>
+                                        <div class="product-badge offer-badge" th:if="${produto.desconto > 0}">
+                                            <span th:text="'-' + ${produto.desconto} + '%' "></span>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="product-description">
+                                        <span class="marca-produto" th:text="${produto.fabricante}"></span>
+                                        <span class="estoque-produto" th:text="'(Estoque: ' + ${produto.estoque} + ')'"></span>
+                                        <span class="categoria-produto" th:text="${produto.idCategoria.nome}"></span>
+                                        <span class="id-produto" style="display: none" th:text="${produto.idProduto}"></span>
+
+                                        <a href="single-product-details.html">
+                                                <h6 th:text="${produto.nome}" class="nome-produto"></h6>
+                                                <span th:if="${produto.estoque == 0}"> Indisponível</span>
+           
+                                        </a>
+                                        <p class="product-price">
+                                            <span class="old-price" th:if="${produto.desconto > 0}" th:text="'R$' + ${produto.preco} "></span> 
+                                            <font class="preco-prod" th:if="${produto.desconto > 0}" th:text="'R$' + ${produto.precoDesconto} "></font> 
+                                            <font class="preco-prod" th:if="${produto.desconto == 0}" th:text="'R$' + ${produto.preco} "></font> 
+                                        </p>
+
+                                        <div class="hover-content">
+                                            <div class="add-to-cart-btn">
+                                                <a href="#" class="btn essence-btn" th:classappend="${produto.estoque > 0} ? adicionarproduto : semestoque" th:text="${produto.estoque > 0} ? 'Adicionar' : 'Avise-me'">Adicionar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+   
+</body>
+</html>
+
+<script>
+            $(".adicionarproduto").on("click", function () {
+            var marca = $(this).closest(".product-description").find(".marca-produto").html();
+            var imagem = $(this).closest(".single-product-wrapper").find("img").attr("src");
+            var nome = $(this).closest(".product-description").find(".nome-produto").html();
+            var preco = $(this).closest(".product-description").find(".preco-prod").html();
+            var id = $(this).closest(".product-description").find(".id-produto").html();
+            var estoque = $(this).closest(".product-description").find(".estoque-produto").html().replace("(Estoque: ", "").replace(")", "");
+            
+            
+            var novoProduto = true;
+            for (var i = 0; i < carrinho["produtos"].length; i++) {
+                if(carrinho["produtos"][i].id == id) {
+                    novoProduto = false;
+                    
+                    if(carrinho["produtos"][i].quantidade+1 > estoque) {
+                        alert("Não temos estoque suficiente para adicionar o seu item no carrinho!");
+                        return;
+                    }
+                    
+                    carrinho["produtos"][i].quantidade += 1;
+                    break;
+                }
+            }
+            
+            if (novoProduto) {
+                carrinho.produtos.push({
+                    'id': id,
+                    'marca': marca,
+                    'imagem': imagem,
+                    'nome': nome,
+                    'preco': preco,
+                    quantidade: 1
+                });
+            }
+            
+            carrinho.valor += parseInt(preco.replace("R$", ""));
+
+            localStorage.setItem('carrinho_pi4', JSON.stringify(carrinho));
+            
+            $("#essenceCartBtn").click();
+
+        });
+        
+        $( document ).ready(function() {
+            $("#produtos-encontrados").html($("#lista-produtos > div").length);
+            
+        });
+        
+</script>

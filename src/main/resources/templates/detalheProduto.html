@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+
+<body>
+<div layout:fragment="conteudo">
+
+    <section class="single_product_details_area d-flex align-items-center"> <!-- conteudo principal de um produto -->
+        
+        <div class="single_product_thumb clearfix" style="text-align: center">
+                <img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}" alt="">
+        </div>
+             
+
+        <div class="single_product_desc clearfix">
+            <img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}" alt="" style="display: none">
+            <span th:text="${produto.fabricante}">Pet Tades</span>
+            <a href="cart.html">
+                <h2 class="nome-produto" th:text="${produto.nome}"></h2>
+                <span th:if="${produto.estoque <= 0}"> Indisponível</span>
+            </a>
+            <p class="product-price" th:text="'R$' + ${produto.preco}"></p>
+            <p class="product-desc" th:text="${produto.descricao}"></p>
+            
+            <span class="marca-produto" style="display: none" th:text="${produto.fabricante}"></span>
+            <span class="estoque-produto" th:text="'(Estoque: ' + ${produto.estoque} + ')'"></span>
+            <span class="categoria-produto" style="display: none" th:text="${produto.idCategoria.nome}"></span>
+            <span class="id-produto" style="display: none" th:text="${produto.idProduto}"></span>
+
+                <div class="cart-fav-box d-flex align-items-center">
+                    <button type="button" name="addtocart" value="5" class="btn essence-btn" th:classappend="${produto.estoque > 0} ? adicionarproduto : semestoque" th:text="${produto.estoque > 0} ? 'Adicionar' : 'Avise-me'" style="border-radius: 5px;">
+                        Adicionar ao carrinho
+                    </button>
+                </div>
+        </div>
+    </section>
+</div>
+</body>
+
+</html>
+
+<script>
+            $(".adicionarproduto").on("click", function () {
+            var marca = $(this).closest(".single_product_desc").find(".marca-produto").html(); //ok
+            var imagem = $(this).closest(".single_product_desc").find("img").attr("src");
+            var nome = $(this).closest(".single_product_desc").find(".nome-produto").html();
+            var preco = $(this).closest(".single_product_desc").find(".product-price").html(); //ok
+            var id = $(this).closest(".single_product_desc").find(".id-produto").html(); //ok
+            var estoque = $(this).closest(".single_product_desc").find(".estoque-produto").html().replace("(Estoque: ", "").replace(")", "");
+
+            var novoProduto = true;
+            for (var i = 0; i < carrinho["produtos"].length; i++) {
+                if(carrinho["produtos"][i].id == id) {
+                    novoProduto = false;
+                    
+                    if(carrinho["produtos"][i].quantidade+1 > estoque) {
+                        alert("Não temos estoque suficiente para adicionar o seu item no carrinho!");
+                        return;
+                    }
+                    
+                    carrinho["produtos"][i].quantidade += 1;
+                    break;
+                }
+            }
+            
+            if (novoProduto) {
+                carrinho.produtos.push({
+                    'id': id,
+                    'marca': marca,
+                    'imagem': imagem,
+                    'nome': nome,
+                    'preco': preco,
+                    quantidade: 1
+                });
+            }
+            
+            carrinho.valor += parseInt(preco.replace("R$", ""));
+
+            localStorage.setItem('carrinho_pi4', JSON.stringify(carrinho));
+            
+            $("#essenceCartBtn").click();
+
+        });
+</script>

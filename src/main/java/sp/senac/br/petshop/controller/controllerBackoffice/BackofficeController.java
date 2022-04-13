@@ -50,9 +50,9 @@ public class BackofficeController {
     public ModelAndView usuariosBackoffice(){
         ModelAndView mv = new ModelAndView("usuariosBackoffice");
 
-        //List<Usuario> usuarios = clienteRepository.buscaUsuariosAtivos();
+        List<Cliente> clientes = clienteRepository.buscaUsuariosAtivos();
 
-        //mv.addObject("usuarios", usuarios);
+        mv.addObject("usuarios", clientes);
         return mv;
     }
 
@@ -89,7 +89,7 @@ public class BackofficeController {
     public ModelAndView excluirUsuario(@PathVariable int id){
         ModelAndView mv = new ModelAndView("redirect:/admin");
 
-        Cliente c = clienteRepository.getOne(id);
+        Cliente c = clienteRepository.getById(id);
 
         c.setAtivo(false);
 
@@ -109,7 +109,7 @@ public class BackofficeController {
 
         //List<Cliente> clientes = clienteRepository.buscaUsuariosAtivos();
 
-        Usuario u = clienteRepository.getOne(id);
+        Usuario u = clienteRepository.getById(id);
 
         int espaco = u.getNome().indexOf(" ");
 
@@ -121,56 +121,56 @@ public class BackofficeController {
         return mv;
     }
 
-    // @PostMapping("/alterarUsuario/{id}")
-    // public ModelAndView alterarUsuario(@PathVariable int id, @ModelAttribute("usuario")  @Valid Cliente c,
-    //                                    BindingResult bindingResult){
+    @PostMapping("/alterarUsuario/{id}")
+    public ModelAndView alterarUsuario(@PathVariable int id, @ModelAttribute("usuario")  @Valid Cliente c,
+                                       BindingResult bindingResult){
 
-    //     if(bindingResult.hasErrors()){
-    //        // List<Usuario> usuarios = UsuarioRepository.buscaUsuariosAtivos();
-    //         //return new ModelAndView("usuariosBackofficeCadastro").addObject("usuarios", usuarios);
-    //     }
-    //     else{
-    //         ModelAndView mv = new ModelAndView("redirect:/admin");
+        if(bindingResult.hasErrors()){
+           List<Cliente> clientes = clienteRepository.buscaUsuariosAtivos();
+            return new ModelAndView("usuariosBackofficeCadastro").addObject("usuarios", clientes);
+        }
+        else{
+            ModelAndView mv = new ModelAndView("redirect:/admin");
 
-    //         Cliente client = clienteRepository.getOne(id);
-    //         client.setNome(c.getNome());
-    //         client.setSobrenome(c.getSobrenome());
-    //         client.setSenha(c.getHashSenha());
-    //         client.setCPF(c.getCPF());
-    //         client.setEmail(c.getEmail());
-    //         client.setDataNascimento(c.getDataNascimento());
-    //         client.setSexo(c.getSexo());
-    //         client.setTelefone(c.getTelefone());
-    //         client.setTipoAcesso(c.getTipoAcesso());
+            Cliente client = clienteRepository.getById(id);
+            client.setNome(c.getNome());
+            client.setSobrenome(c.getSobrenome());
+            client.setSenha(c.getHashSenha());
+            client.setCPF(c.getCPF());
+            client.setEmail(c.getEmail());
+            client.setDataNascimento(c.getDataNascimento());
+            client.setSexo(c.getSexo());
+            client.setTelefone(c.getTelefone());
+            client.setTipoAcesso(c.getTipoAcesso());
 
-    //         client.setNome(c.getNome() + " " + c.getSobrenome());
+            client.setNome(c.getNome() + " " + c.getSobrenome());
 
-    //         clienteRepository.save(client);
+            clienteRepository.save(client);
 
-    //         return mv;
-    //     }
-    // }
+            return mv;
+        }
+    }
 
 
-    ///Produtos e Categorias
+    //Produtos e Categorias
 
-    // @GetMapping("/adicionar")
-    // public ModelAndView adicionar(){
-    //     ModelAndView mv = new ModelAndView("cadastroProduto");
+    @GetMapping("/adicionar")
+    public ModelAndView adicionar(){
+        ModelAndView mv = new ModelAndView("cadastroProduto");
 
-    //     // List<Categoria> categorias = categoriaRepository.findAll();
+        //List<Categoria> categorias = categoriaRepository.findAll();
 
-    //     // for(Categoria c : categorias){
-    //     //     System.out.println(c.getIdCategoria());
-    //     //     System.out.println(c.getNome());
-    //     // }
+        // for(Categoria c : categorias){
+        //     System.out.println(c.getIdCategoria());
+        //     System.out.println(c.getNome());
+        // }
 
-    //     mv.addObject("produto", new Produto());
+        mv.addObject("produto", new Produto());
     //     // mv.addObject("categorias", categorias);
 
 
-    //     return mv;
-    // }
+        return mv;
+    }
 
     // @PostMapping("/adicionar")
     // public ModelAndView adicionar(
@@ -179,8 +179,8 @@ public class BackofficeController {
     //     if(bindingResult.hasErrors()){
     //         System.out.println("Erros");
     //         System.out.println(bindingResult);
-    //         //List<Categoria> categorias = categoriaRepository.findAll();
-    //        // return new ModelAndView("cadastroProduto").addObject("categorias", categorias).addObject("produto", p);
+    //         List<Categoria> categorias = categoriaRepository.findAll();
+    //        return new ModelAndView("cadastroProduto").addObject("categorias", categorias).addObject("produto", p);
     //     }
     //     else {
     //         ModelAndView mv = new ModelAndView("redirect:/admin");
@@ -215,66 +215,66 @@ public class BackofficeController {
         
     }
 
-    // @PostMapping("/alterar/{id}")
-    // public ModelAndView alterar(@PathVariable int id, @ModelAttribute("produto")  @Valid Produto p,
-    //                                    BindingResult bindingResult){
+    @PostMapping("/alterar/{id}")
+    public ModelAndView alterar(@PathVariable int id, @ModelAttribute("produto")  @Valid Produto p,
+                                       BindingResult bindingResult){
         
-    //     if(bindingResult.hasErrors())
-    //     {
-    //         return new ModelAndView("cadastroProduto").addObject("produto", p);
-    //     } else {
-    //     ModelAndView mv = new ModelAndView("redirect:/admin/listagemProdutosBackOffice");
+        if(bindingResult.hasErrors())
+        {
+            return new ModelAndView("cadastroProduto").addObject("produto", p);
+        } else {
+        ModelAndView mv = new ModelAndView("redirect:/admin/listagemProdutosBackOffice");
 
-    //     Produto prod = produtoRepository.getOne(id);
+        Produto prod = produtoRepository.getById(id);
 
-    //     double precoDesconto = p.getPreco() - (p.getPreco() * ((double)p.getDesconto() / 100));
-    //     int precoDescontoRounded = (int) Math.round(precoDesconto);
-    //     prod.setDescricao(p.getDescricao());
-    //     prod.setAtivo(p.getAtivo());
-    //     prod.setNome(p.getNome());
-    //     prod.setPreco(p.getPreco());
-    //     prod.setEstoque(p.getEstoque());
-    //     prod.setIdCategoria((p.getIdCategoria()));
-    //     prod.setModelo(p.getModelo());
-    //     prod.setCodigodebarras(p.getCodigodebarras());
-    //     prod.setDesconto(p.getDesconto());
-    //     prod.setPrecoDesconto(new Double(precoDescontoRounded));
+        double precoDesconto = p.getPreco() - (p.getPreco() * ((double)p.getDesconto() / 100));
+        int precoDescontoRounded = (int) Math.round(precoDesconto);
+        prod.setDescricao(p.getDescricao());
+        prod.setAtivo(p.getAtivo());
+        prod.setNome(p.getNome());
+        prod.setPreco(p.getPreco());
+        prod.setEstoque(p.getEstoque());
+        prod.setIdCategoria((p.getIdCategoria()));
+        prod.setModelo(p.getModelo());
+        prod.setCodigoDeBarras(p.getCodigoDeBarras());
+        prod.setDesconto(p.getDesconto());
+        prod.setPrecoDesconto(new Double(precoDescontoRounded));
 
-    //     System.out.println("\n\n" + prod.getPrecoDesconto() + "\n\n");
+        System.out.println("\n\n" + prod.getPrecoDesconto() + "\n\n");
 
-    //     produtoRepository.save(prod);
+        produtoRepository.save(prod);
 
-    //     return mv;
-    //     }
+        return mv;
+        }
         
-    // }
+    }
 
-    // @GetMapping("/excluir/{id}")
-    // public ModelAndView excluir(@PathVariable int id){
+    @GetMapping("/excluir/{id}")
+    public ModelAndView excluir(@PathVariable int id){
 
-    //     ModelAndView mv = new ModelAndView("redirect:/admin/listagemProdutosBackOffice");
+        ModelAndView mv = new ModelAndView("redirect:/admin/listagemProdutosBackOffice");
 
-    //     Produto p = produtoRepository.getOne(id);
-    //     p.setAtivo(false);
+        Produto p = produtoRepository.getOne(id);
+        p.setAtivo(false);
 
-    //     produtoRepository.save(p);
+        produtoRepository.save(p);
 
-    //     mv.addObject("sucesso", true);
+        mv.addObject("sucesso", true);
 
-    //     return mv;
+        return mv;
 
-    // }
+    }
 
-    // @GetMapping("/listagemProdutosBackOffice")
-    // public ModelAndView listagemProdutosBackOffice(){
-    //     ModelAndView mv = new ModelAndView("listagemProdutosBackOffice");
-    //     List<Produto> produtos = produtoRepository.findAll();
+    @GetMapping("/listagemProdutosBackOffice")
+    public ModelAndView listagemProdutosBackOffice(){
+        ModelAndView mv = new ModelAndView("listagemProdutosBackOffice");
+        List<Produto> produtos = produtoRepository.findAll();
 
-    //     mv.addObject("produtos", produtos);
+        mv.addObject("produtos", produtos);
 
 
-    //     return mv;
-    // }
+        return mv;
+    }
 
     // @GetMapping("/listagemPedidoBackOffice")
     // public ModelAndView listagemPedidoBackOffice(){
