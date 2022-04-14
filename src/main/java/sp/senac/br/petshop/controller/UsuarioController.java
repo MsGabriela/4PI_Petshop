@@ -1,5 +1,6 @@
 package sp.senac.br.petshop.controller;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,9 @@ import sp.senac.br.petshop.model.Cliente;
 import sp.senac.br.petshop.model.Endereco;
 import sp.senac.br.petshop.model.Pedido;
 import sp.senac.br.petshop.model.Usuario;
-import sp.senac.br.petshop.repository.ClienteRepository;
 import sp.senac.br.petshop.repository.EnderecoRepository;
 import sp.senac.br.petshop.repository.PedidoRepository;
+import sp.senac.br.petshop.repository.UsuarioRepository;
 
 import javax.validation.Valid;
 
@@ -26,8 +27,10 @@ import javax.validation.Valid;
 @RequestMapping("/login")
 public class UsuarioController 
 {
+    
+    
         @Autowired
-        private ClienteRepository clienteRepository;
+        private UsuarioRepository usuarioRepository;
 
         @Autowired
         private PedidoRepository  pedidoRepository;
@@ -40,56 +43,46 @@ public class UsuarioController
         {
             if(authentication != null)
             {
-                Cliente c = (Cliente)authentication.getPrincipal();
-        
-                c.setEnderecos(enderecoRepository.buscaEnderecos(c));
-
+                Usuario u = (Usuario)authentication.getPrincipal();
+    
+                u.setEnderecos(enderecoRepository.buscaEnderecos(u));
+    
                 ModelAndView mv = new ModelAndView("redirect:/login/minhaconta");
-                mv.addObject("usuario", c);
-
+                mv.addObject("usuario", u);
+    
                 return mv;
             }
-
-            return new ModelAndView("/login"); 
+    
+            return new ModelAndView("login");
         }
 
-        @GetMapping("/error")
-        public ModelAndView login()
-        {
-            ModelAndView mv = new ModelAndView("/login");
-
-            mv.addObject("exception", "Usuário ou senha inválidos!");
-
-            return mv;
-        }
-
-        @GetMapping("/Cadastro")
+        @GetMapping("/cadastro")
         public ModelAndView cadastrar()
         {
-            ModelAndView mv = new ModelAndView("Cadastro");
+            ModelAndView mv = new ModelAndView("cadastro");
             mv.addObject("usuario", new Cliente());
             return mv;
         }
 
-        @PostMapping("/Cadastro")
+        @PostMapping("/cadastro")
          public ModelAndView cadastrar(
-         @ModelAttribute("usuario")  @Valid Cliente c,
+         @ModelAttribute("usuario")  @Valid Usuario u,
          BindingResult bindingResult)
         { 
             //Concluir o cadastro
 
             if(bindingResult.hasErrors())
             {
-                return new ModelAndView("Cadastro");
+                return new ModelAndView("cadastro");
             }
             else 
             {
-                ModelAndView mv = new ModelAndView("redirect:/login");
-                c.setTipoAcesso(1);
-                c.setAtivo(true);
-                c.setNome(c.getNome() + " " + c.getSobrenome());
-                c.setSenha(c.getHashSenha());
-                clienteRepository.save(c); 
+                ModelAndView mv = new ModelAndView("redirect:/index");
+                u.setTipoAcesso(1);
+                u.setAtivo(true);
+                u.setNome(u.getNome() + " " + u.getSobrenome());
+                u.setSenha(u.getHashSenha());
+                usuarioRepository.save(u); 
 
                 return mv;
             }
@@ -98,16 +91,16 @@ public class UsuarioController
     @GetMapping("/Alterar/{id}")
     public ModelAndView alterar(@PathVariable int id)
     {
-        ModelAndView mv = new ModelAndView("Cadastro");
+        ModelAndView mv = new ModelAndView("cadastro");
 
-        Cliente c = clienteRepository.getOne(id);
+        Usuario u = usuarioRepository.getOne(id);
 
-        int espaco = c.getNome().indexOf(" ");
+        int espaco = u.getNome().indexOf(" ");
 
-        c.setSobrenome(c.getNome().substring(espaco + 1));
-        c.setNome(c.getNome().substring(0, espaco));
+        u.setSobrenome(u.getNome().substring(espaco + 1));
+        u.setNome(u.getNome().substring(0, espaco));
 
-        mv.addObject("usuario", c);
+        mv.addObject("usuario", u);
         return mv;
     }
 
@@ -125,17 +118,17 @@ public class UsuarioController
         {
             ModelAndView mv = new ModelAndView("redirect:/login");
 
-           Cliente c = clienteRepository.getOne(id);
-            c.setNome(c.getNome() + " " + c.getSobrenome());
-            c.setSobrenome(c.getSobrenome());
-            c.setCPF(c.getCPF());
-            c.setEmail(c.getEmail());
-            c.setSenha(c.getHashSenha());
-            c.setDataNascimento(c.getDataNascimento());
-            c.setSexo(c.getSexo());
-            c.setTelefone(c.getTelefone());
+            Usuario user = usuarioRepository.getOne(id);
+            user.setNome(u.getNome() + " " + u.getSobrenome());
+            user.setSobrenome(u.getSobrenome());
+            user.setSenha(u.getHashSenha());
+            user.setCPF(u.getCPF());
+            user.setEmail(u.getEmail());
+            user.setDataNascimento(u.getDataNascimento());
+            user.setSexo(u.getSexo());
+            user.setTelefone(u.getTelefone());
 
-            clienteRepository.save(c);
+            usuarioRepository.save(user);
 
             authentication.setAuthenticated(false);
 
@@ -164,7 +157,7 @@ public class UsuarioController
      { 
          //Mostrar o formulário de cadastro
 
-
+        System.out.println("eWOKEWQIEWEWq");
         if(authentication != null)
         {
             Usuario u = (Usuario)authentication.getPrincipal();
