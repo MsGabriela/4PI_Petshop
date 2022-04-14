@@ -9,13 +9,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  extends WebSecurityConfigurerAdapter
 {
+    
     public static PasswordEncoder plainPasswordEncoder()
     {
+        
         return new PasswordEncoder() 
         {
             @Override
@@ -48,18 +51,26 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter
     {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/img**", "/js/**", "/fonts/**", "/scss/**", "/vendor/**").permitAll()
+                .antMatchers("/css/**", "/img**", "/js/**", "/fonts/**", "/scss/**", "/vendor/**, /json/**").permitAll()
                 .and()
                 .formLogin()
                     .loginPage("/login")
                     .usernameParameter("email")
                     .passwordParameter("senha")
-                    .defaultSuccessUrl("/index").permitAll()
+                    .failureUrl("/login/error")
+                    .defaultSuccessUrl("/admin").permitAll()
+                    //.failureHandler(authenticationFailureHandler())
                 .and()
                 .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/login?logout")
                     .invalidateHttpSession(true).deleteCookies("JSESSIONID");
     }
+
+    // @Bean
+    // public static AuthenticationFailureHandler authenticationFailureHandler() 
+    // {
+    //     return new CustomAuthenticationFailureHandler();
+    // }
 
 }

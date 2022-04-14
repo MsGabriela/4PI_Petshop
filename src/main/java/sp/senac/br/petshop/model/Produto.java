@@ -3,7 +3,6 @@ package sp.senac.br.petshop.model;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,9 +20,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.ManyToAny;
 import org.springframework.format.annotation.NumberFormat;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
 
 @Entity
 @Table(name = "produto")
@@ -76,16 +73,16 @@ public class Produto implements Serializable
 
     private boolean ativo;
 
-    // @ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
-    // private Set<Pedido> pedidos;
+    @ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
+    private Set<Pedido> pedidos;
 
-    // @NotNull(message = "Selecione uma categoria!")
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn
-    // (
-    //     name = "idCategoria", nullable = false
-    // )
-    // private Categoria idCategoria;
+    @NotNull(message = "Selecione uma categoria!")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    (
+        name = "idCategoria", nullable = false
+    )
+    private Categoria idCategoria;
 
     public int getDesconto()
     {
@@ -177,7 +174,7 @@ public class Produto implements Serializable
         this.precoDesconto = precoDesconto;
     }
 
-    public boolean isAtivo() {
+    public boolean getAtivo() {
         return ativo;
     }
 
@@ -185,12 +182,20 @@ public class Produto implements Serializable
         this.ativo = ativo;
     }
 
-    // public Set<Pedido> getPedidos() {
-    //     return pedidos;
-    // }
+    public Set<Pedido> getPedidos() {
+        return pedidos;
+    }
 
-    // public void setPedidos(Set<Pedido> pedidos) {
-    //     this.pedidos = pedidos;
-    // }
+    public void setPedidos(Set<Pedido> pedidos) 
+    {
+        this.pedidos = pedidos;
+    }
+
+    public Object getIdCategoria() {
+        return null;
+    }
+
+    public void setIdCategoria(Object object) {
+    }
     
 }
