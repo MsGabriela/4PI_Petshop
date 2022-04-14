@@ -84,7 +84,7 @@ public class UsuarioController
             }
             else 
             {
-                ModelAndView mv = new ModelAndView("redirect:/index");
+                ModelAndView mv = new ModelAndView("redirect:/login");
                 c.setTipoAcesso(1);
                 c.setAtivo(true);
                 c.setNome(c.getNome() + " " + c.getSobrenome());

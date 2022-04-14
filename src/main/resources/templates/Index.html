@@ -70,7 +70,7 @@
         <div class="row gx-5">
             <div class="col-lg-4 col-md-4">
                 <div class="card" style="width: 16rem;">
-                    <img src="Assets/img/RacaoGatoFilhotes.jpg" class="card-img-top" alt="...">
+                    <img th:src="@{Img/RacaoGatoFilhote.jpg}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -81,7 +81,7 @@
             </div>
             <div class="col-lg-4 col-md-4">
                 <div class="card" style="width: 16rem;">
-                    <img src="Assets/img/RacaoGatoFilhotes.jpg" class="card-img-top" alt="...">
+                    <img th:src="Assets/Img/RacaoGatoFilhotes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -92,7 +92,7 @@
             </div>
             <div class="col-lg-4 col-md-4 py-3 mx-0 my-0">
                 <div class="card" style="width: 16rem;">
-                    <img src="Assets/img/RacaoGatoFilhotes.jpg" class="card-img-top" alt="...">
+                    <img th:src="Assets/Img/RacaoGatoFilhotes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -111,9 +111,9 @@
                     <div class="popular-products-slides owl-carousel">
                         <div class="single-product-wrapper" th:each="produto : ${produtos}">
                             <div class="product-img">
-                                <img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}" alt="">
+                                <img th:src="@{/Img/{id}.jpg(id=${produto.idProduto})}" alt="">
                                 <!-- img do produto -->
-                                <img class="hover-img" th:src="@{/images/{id}.jpg(id=${produto.idProduto})}" alt="">
+                                <img class="hover-img" th:src="@{/Img/{id}.jpg(id=${produto.idProduto})}" alt="">
                                 <!-- img em hover -->
                             </div>
                             <div class="product-description">

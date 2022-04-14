@@ -1,39 +1,49 @@
-// package sp.senac.br.petshop.controller;
+package sp.senac.br.petshop.controller;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RestController;
 
-// import sp.senac.br.petshop.repository.ProdutoRepository;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-// @RestController
-// @RequestMapping("/index")
-// public class IndexController 
-// {
-//     @Autowired
-//     private ProdutoRepository produtoRepository;
 
-     
-//     @GetMapping
-//     public ModelAndView index(Authentication authentication){
-//         Usuario u = null;
+import sp.senac.br.petshop.model.Produto;
+import sp.senac.br.petshop.model.Usuario;
+import sp.senac.br.petshop.repository.ProdutoRepository;
 
-//         if(authentication != null){
-//             u = (Usuario)authentication.getPrincipal();
-//         }
-        
-//         List<Produto> produtos = produtoRepository.buscaProdutosAtivos();
 
-//         ModelAndView mv = new ModelAndView("index").addObject("usuario", u).addObject("produtos", produtos);
 
-//         return mv;
-//     }
+@RestController
+@RequestMapping("/index")
+public class IndexController {
     
-//     @GetMapping("/sobrenos")
-//     public ModelAndView sobrenos(){      
+    @Autowired
+    private ProdutoRepository produtoRepository;
+    
+    @GetMapping
+    public ModelAndView index(Authentication authentication){
+        Usuario u = null;
 
-//         ModelAndView mv = new ModelAndView("sobre_nos");
+        if(authentication != null){
+            u = (Usuario)authentication.getPrincipal();
+        }
+        
+        List<Produto> produtos = produtoRepository.buscaProdutosAtivos();
 
-//         return mv;
-//     }
-// }
+        ModelAndView mv = new ModelAndView("index").addObject("usuario", u).addObject("produtos", produtos);
+
+        return mv;
+    }
+    
+    @GetMapping("/sobrenos")
+    public ModelAndView sobrenos(){      
+
+        ModelAndView mv = new ModelAndView("sobre_nos");
+
+        return mv;
+    }
+    
+}
