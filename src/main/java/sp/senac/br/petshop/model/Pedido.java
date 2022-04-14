@@ -16,10 +16,6 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 
-/**
- *
- * @author diogo.carauta
- */
 
 @Entity
 @Table(name = "pedido")

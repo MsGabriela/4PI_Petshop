@@ -1,46 +1,59 @@
-// package sp.senac.br.petshop.DatabasePopulate;
+package sp.senac.br.petshop.databasePopulate;
 
-// import java.util.Date;
-// import java.util.Random;
+import java.util.Date;
+import java.util.Random;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.CommandLineRunner;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.context.annotation.Profile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
-// import sp.senac.br.petshop.model.Cliente;
-// import sp.senac.br.petshop.repository.ClienteRepository;
+import sp.senac.br.petshop.model.Cliente;
+import sp.senac.br.petshop.model.Funcionario;
+import sp.senac.br.petshop.repository.ClienteRepository;
 
-// @Configuration
-// @Profile("teste")
-// public class ClientePopulate implements CommandLineRunner{
+@Configuration
+@Profile("teste")
+public class ClientePopulate implements CommandLineRunner{
 
-//     @Autowired
-//     public ClienteRepository clienteRepository;
+    @Autowired
+    public ClienteRepository clienteRepository;
 
-//     @Override
-//     public void run(String... args) throws Exception {
-//         PopularClientes();
-//     }
+    @Override
+    public void run(String... args) throws Exception {
+        Funcionario c = new Funcionario();
+            c.setAtivo(true);
+            c.setDataNascimento(new Date());
+            c.setEmail("email@email.com");
+            c.setName("Cliente " + 1);
+            c.setSobrenome("Teste");
+            c.setSexo("Masculino");
+            c.setTelefone("65987458");
+            c.setCPF("61266859039");
+            c.setHashSenha("123456");
+            c.setAdmin(true);        
+
+                PopularClientes();
+    }
     
-//     public void PopularClientes()
-//     {
-//         Random rand = new Random();
+    public void PopularClientes()
+    {
+        Random rand = new Random();
 
-//         for(int i = 0; i < 10; i++)
-//         {
-//             Cliente c = new Cliente();
-//             c.setAtivo(rand.nextBoolean());
-//             c.setDataNascimento(new Date());
-//             c.setEmail("email@email.com");
-//             c.setName("Cliente " + 1);
-//             c.setSobrenome("Teste");
-//             c.setSexo("Masculino");
-//             c.setTelefone("65987458");
-//             c.setCPF("61266859039");
-//             c.setHashSenha("123456");
+        for(int i = 0; i < 10; i++)
+        {
+            Cliente c = new Cliente();
+            c.setAtivo(rand.nextBoolean());
+            c.setDataNascimento(new Date());
+            c.setEmail("email@email.com");
+            c.setName("Cliente " + 1);
+            c.setSobrenome("Teste");
+            c.setSexo("Masculino");
+            c.setTelefone("65987458");
+            c.setCPF("61266859039");
+            c.setHashSenha("123456");
             
-//             clienteRepository.save(c);
-//         }
-//     }
-// }
+            clienteRepository.save(c);
+        }
+    }
+}

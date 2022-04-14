@@ -17,7 +17,6 @@ import sp.senac.br.petshop.model.Usuario;
 import sp.senac.br.petshop.repository.ClienteRepository;
 import sp.senac.br.petshop.repository.EnderecoRepository;
 import sp.senac.br.petshop.repository.PedidoRepository;
-import sp.senac.br.petshop.repository.UsuarioRepository;
 
 import javax.validation.Valid;
 
@@ -44,29 +43,29 @@ public class UsuarioController
         {
             if(authentication != null)
             {
-                Cliente c = (Cliente)authentication.getPrincipal();
+                Cliente c = (Cliente)authentication.getCredentials();
     
                 c.setEnderecos(enderecoRepository.buscaEnderecos(c));
     
-                ModelAndView mv = new ModelAndView("redirect:/login/minhaconta");
+                ModelAndView mv = new ModelAndView("redirect:/login/IndexBackOffice");
                 mv.addObject("usuario", c);
     
                 return mv;
             }
     
-            return new ModelAndView("login");
+            return new ModelAndView("IndexBackOffice");
         }
 
-        @GetMapping("/cadastro")
-        public ModelAndView cadastrar()
+        @GetMapping("/Cadastrar")
+        public ModelAndView Cadastrar()
         {
-            ModelAndView mv = new ModelAndView("cadastro");
+            ModelAndView mv = new ModelAndView("Cadastrar");
             mv.addObject("usuario", new Cliente());
             return mv;
         }
 
-        @PostMapping("/cadastro")
-         public ModelAndView cadastrar(
+        @PostMapping("/Cadastrar")
+         public ModelAndView Cadastrar(
          @ModelAttribute("usuario")  @Valid Cliente c,
          BindingResult bindingResult)
         { 
@@ -74,7 +73,7 @@ public class UsuarioController
 
             if(bindingResult.hasErrors())
             {
-                return new ModelAndView("cadastro");
+                return new ModelAndView("Cadastrar");
             }
             else 
             {
@@ -92,7 +91,7 @@ public class UsuarioController
     @GetMapping("/Alterar/{id}")
     public ModelAndView alterar(@PathVariable int id)
     {
-        ModelAndView mv = new ModelAndView("cadastro");
+        ModelAndView mv = new ModelAndView("Cadastro");
 
         Cliente c = clienteRepository.getById(id);
 
@@ -113,7 +112,7 @@ public class UsuarioController
     {
         if(bindingResult.hasErrors())
         {
-            return new ModelAndView("cadastro");
+            return new ModelAndView("Cadastro");
         }
         else
         {

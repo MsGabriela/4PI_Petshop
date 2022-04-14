@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -70,6 +71,11 @@ public class Produto implements Serializable
     @Min(value = 0, message = "O desconto não pode ser negativo!")
     @Max(value = 100,message = "O desconto não pode ultrapassar 100%")
     private int desconto;
+
+    @Lob
+    private byte[]imagem;
+
+    
 
     private double precoDesconto;
 
@@ -191,5 +197,13 @@ public class Produto implements Serializable
     // public void setPedidos(Set<Pedido> pedidos) {
     //     this.pedidos = pedidos;
     // }
+
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
     
 }

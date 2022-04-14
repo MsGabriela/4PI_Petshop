@@ -15,7 +15,7 @@ import sp.senac.br.petshop.model.Usuario;
 import sp.senac.br.petshop.repository.ProdutoRepository;
 
 @RestController
-@RequestMapping("/index")
+@RequestMapping("/Index")
 public class IndexController 
 {
     @Autowired
