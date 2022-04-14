@@ -77,12 +77,12 @@ public class UsuarioController
             }
             else 
             {
-                ModelAndView mv = new ModelAndView("redirect:/index");
-                u.setTipoAcesso(1);
-                u.setAtivo(true);
-                u.setNome(u.getNome() + " " + u.getSobrenome());
-                u.setSenha(u.getHashSenha());
-                usuarioRepository.save(u); 
+                ModelAndView mv = new ModelAndView("redirect:/login");
+                c.setTipoAcesso(1);
+                c.setAtivo(true);
+                c.setNome(c.getNome() + " " + c.getSobrenome());
+                c.setSenha(c.getHashSenha());
+                clienteRepository.save(c); 
 
                 return mv;
             }
