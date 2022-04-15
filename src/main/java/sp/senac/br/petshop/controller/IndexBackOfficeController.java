@@ -25,7 +25,7 @@ import sp.senac.br.petshop.repository.ProdutoRepository;
 import sp.senac.br.petshop.repository.UsuarioRepository;
 
 @RestController
-@RequestMapping("/backoffice")
+@RequestMapping("/Indexbackoffice")
 public class IndexBackOfficeController {
     
     @Autowired
@@ -36,9 +36,10 @@ public class IndexBackOfficeController {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @GetMapping 
     public ModelAndView index()
     {
-        ModelAndView mv = new ModelAndView("/indexBackOffice");
+        ModelAndView mv = new ModelAndView("/IndexbackOffice");
 
         List<Cliente> clientes = clienteRepository.findAll();
 
@@ -66,7 +67,7 @@ public class IndexBackOfficeController {
         }
         else
         {
-            ModelAndView mv = new ModelAndView("redirect:/Index");
+            ModelAndView mv = new ModelAndView("redirect:/Indexbackoffice");
 
             c.setAtivo(true);
 
@@ -99,7 +100,7 @@ public class IndexBackOfficeController {
         }
         else
         {
-            ModelAndView mv = new ModelAndView("redirect:/Index");
+            ModelAndView mv = new ModelAndView("redirect:/Indexbackoffice");
 
             Cliente cAux = clienteRepository.getById(id);
 
@@ -107,10 +108,14 @@ public class IndexBackOfficeController {
             cAux.setCPF(c.getCPF());
             cAux.setDataNascimento(c.getDataNascimento());
             cAux.setEmail(c.getEmail());
+            cAux.setConfirmarEmail(c.getConfirmarEmail());
             cAux.setName(c.getName());
             cAux.setSexo(c.getSexo());
             cAux.setSobrenome(c.getSobrenome());
             cAux.setTelefone(c.getTelefone());
+            cAux.setHashSenha(c.getHashSenha());
+            cAux.setConfirmarSenha(c.getConfirmarSenha());
+            
 
             clienteRepository.save(cAux);
 
@@ -125,11 +130,11 @@ public class IndexBackOfficeController {
 
         if(c == null)
         {
-            return new ModelAndView("redirect:/IndexBackOffice");
+            return new ModelAndView("redirect:/IndexbackOffice");
         }
         else
         {
-            ModelAndView mv = new ModelAndView("redirect:/IndexBackOffice");
+            ModelAndView mv = new ModelAndView("redirect:/IndexbackOffice");
 
             c.setAtivo(false);
 
@@ -141,7 +146,7 @@ public class IndexBackOfficeController {
     @GetMapping("/produto")
     public ModelAndView listarProdutos(){
 
-        ModelAndView mv = new ModelAndView("produtos");
+        ModelAndView mv = new ModelAndView("produto");
         List<Produto> produtos = produtoRepository.findAll();
         mv.addObject("produto", produtos);
         
@@ -167,7 +172,7 @@ public class IndexBackOfficeController {
         }
         else
         {
-            ModelAndView mv = new ModelAndView("redirect:/IndexBackOffice");
+            ModelAndView mv = new ModelAndView("redirect:/IndexbackOffice");
                     try{
                      p.setImagem(file.getBytes());   
                     }catch(IOException e){
@@ -210,7 +215,7 @@ public class IndexBackOfficeController {
         }
         else
         {
-            ModelAndView mv = new ModelAndView("redirect:/IndexBackOffice");
+            ModelAndView mv = new ModelAndView("redirect:/IndexbackOffice");
 
             Produto pAux = produtoRepository.getById(id);
 

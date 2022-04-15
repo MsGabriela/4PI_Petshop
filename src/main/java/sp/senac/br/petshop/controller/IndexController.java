@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import sp.senac.br.petshop.model.Cliente;
 import sp.senac.br.petshop.model.Produto;
 import sp.senac.br.petshop.model.Usuario;
 import sp.senac.br.petshop.repository.ProdutoRepository;
 
 @RestController
-@RequestMapping("/Index")
+@RequestMapping()
 public class IndexController 
 {
     @Autowired
@@ -24,15 +25,15 @@ public class IndexController
 
     @GetMapping
     public ModelAndView index(Authentication authentication){
-        Usuario u = null;
+        Cliente c = null;
 
         if(authentication != null){
-            u = (Usuario)authentication.getPrincipal();
+            c = (Cliente)authentication.getPrincipal();
         }
 
         List<Produto> produtos = produtoRepository.buscaProdutosAtivos();
 
-        ModelAndView mv = new ModelAndView("index").addObject("usuario", u).addObject("produtos", produtos);
+        ModelAndView mv = new ModelAndView("index").addObject("usuario", c).addObject("produtos", produtos);
 
         return mv;
     }

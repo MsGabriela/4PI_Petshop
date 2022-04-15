@@ -22,7 +22,7 @@
     <hearder>
         <div class="nav navbar navbar-expand-lg bg-primary-color" id="navbar">
             <div class="container">
-                <a th:href="#" class="navbar-brand segundary-color">
+                <a href="#" class="navbar-brand segundary-color">
                     <img th:src="@{/img/logo.png}" alt="Pet">
                     <span>Zootopia</span>
                 </a>
@@ -78,24 +78,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:ifth:each="cliente : ${clientes}">
-                            <td th:text="${cliente.id}"></td>
+                        <tr th:each="cliente : ${clientes}">
                             <td th:text="${cliente.nome}"></td>
                             <td th:text="${cliente.ativo == 1? 'Disponivel' : 'Indisponivel'}"
                                 th:style="${cliente.ativo == 1 ? 'color: green;' : 'color: red;'}"></td>
                             <td>
                                 <a class="btn btn-primary col-md-4"
-                                    th:href="@{/Alterar/{id}(id=${cliente.id})}">Alterar</a>
+                                    th:href="@{/Alterar/{id}(id=${cliente.IdUsuario})}">Alterar</a>
                                 &nbsp;&nbsp;
                                 <a class="btn btn-danger col-md-4 excluirCliente"
-                                    th:attr="id = ${cliente.id}, nome = ${cliente.nome}"
-                                    th:href="@{/Excluir/{id}(id=${cliente.id})}">Desabilitar</a>
+                                    th:attr="id = ${cliente.IdUsuario}, nome = ${cliente.nome}"
+                                    th:href="@{/Excluir/{id}(id=${cliente.IdUsuario})}">Desabilitar</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <a class="btn btn-success" th:href="@{/Adicionar}">Adicionar Novo</a>
+                <a class="btn btn-success" th:href="@{/Indexbackoffice/Adicionar}">Adicionar Novo</a>
             </div>
         </div>
     </div>

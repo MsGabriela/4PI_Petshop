@@ -127,12 +127,12 @@ public abstract class Usuario implements UserDetails
     private String senha;
     private String ConfirmarSenha;
 
-    public Long getIdUser()
+    public Long getIdUsuario()
     {
         return idUsuario;
     }
 
-    public void setIdUser(Long idUser)
+    public void setIdUsuario(Long idUser)
     {
         this.idUsuario = idUser;
     }
