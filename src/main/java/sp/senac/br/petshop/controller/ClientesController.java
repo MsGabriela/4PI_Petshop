@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,116 +18,116 @@ import sp.senac.br.petshop.model.Cliente;
 import sp.senac.br.petshop.repository.ClienteRepository;
 import sp.senac.br.petshop.repository.EnderecoRepository;
 
-@RestController
-public class ClientesController {
+// @RestController
+// public class ClientesController {
     
-    @Autowired
-    private ClienteRepository clienteRepository;
+//     @Autowired
+//     private ClienteRepository clienteRepository;
     
-    @Autowired
-    private EnderecoRepository enderecoRepository;
+//     @Autowired
+//     private EnderecoRepository enderecoRepository;
 
-    @GetMapping("Index")
-    public ModelAndView index()
-    {
-        ModelAndView mv = new ModelAndView("Index");
+    // @GetMapping("/IndexBackOffice")
+    // public ModelAndView index()
+    // {
+    //     ModelAndView mv = new ModelAndView("IndexBackOffice");
 
-        List<Cliente> clientes = clienteRepository.findAll();
+    //     List<Cliente> clientes = clienteRepository.findAll();
 
-        mv.addObject("clientes", clientes);
+    //     mv.addObject("clientes", clientes);
 
-        return mv;
-    }
+    //     return mv;
+    // }
 
-    @GetMapping("/Adicionar")
-    public ModelAndView adicionar()
-    {
-        ModelAndView mv = new ModelAndView("Adicionar");
+    // @GetMapping("/Adicionar")
+    // public ModelAndView adicionar()
+    // {
+    //     ModelAndView mv = new ModelAndView("Adicionar");
 
-        mv.addObject("cliente", new Cliente());
+    //     mv.addObject("cliente", new Cliente());
 
-        return mv;
-    }
+    //     return mv;
+    // }
 
-    @PostMapping("/Adicionar")
-    public ModelAndView adicionar(@ModelAttribute("cliente") @Valid Cliente c, BindingResult bindingResult)
-    {
-        if(bindingResult.hasErrors())
-        {
-            return new ModelAndView("Adicionar");
-        }
-        else
-        {
-            ModelAndView mv = new ModelAndView("redirect:/Index");
+    // @PostMapping("/Adicionar")
+    // public ModelAndView adicionar(@ModelAttribute("cliente") @Valid Cliente c, BindingResult bindingResult)
+    // {
+    //     if(bindingResult.hasErrors())
+    //     {
+    //         return new ModelAndView("Adicionar");
+    //     }
+    //     else
+    //     {
+    //         ModelAndView mv = new ModelAndView("redirect:/Index");
 
-            c.setAtivo(true);
+    //         c.setAtivo(true);
 
-            clienteRepository.save(c);
+    //         clienteRepository.save(c);
 
-            return mv;
-        }
-    }
+    //         return mv;
+    //     }
+    // }
 
-    @GetMapping("/Alterar/{id}")
-    public ModelAndView alterar(@PathVariable int id)
-    {
-        ModelAndView mv = new ModelAndView("Adicionar");
+    // @GetMapping("/Alterar/{id}")
+    // public ModelAndView alterar(@PathVariable int id)
+    // {
+    //     ModelAndView mv = new ModelAndView("Adicionar");
 
-        Cliente c = clienteRepository.getById(id);
+    //     Cliente c = clienteRepository.getById(id);
 
-        mv.addObject("cliente", c);
+    //     mv.addObject("cliente", c);
 
-        return mv;
-    }
+    //     return mv;
+    // }
 
-    @PostMapping("/Alterar/{id}")
-    public ModelAndView alterar(@PathVariable int id,
-                                @ModelAttribute("cliente") @Valid Cliente c,
-                                BindingResult bindingResult)
-    {
-        if(bindingResult.hasErrors())
-        {
-            return new ModelAndView("Adicionar");
-        }
-        else
-        {
-            ModelAndView mv = new ModelAndView("redirect:/Index");
+    // @PostMapping("/Alterar/{id}")
+    // public ModelAndView alterar(@PathVariable int id,
+    //                             @ModelAttribute("cliente") @Valid Cliente c,
+    //                             BindingResult bindingResult)
+    // {
+    //     if(bindingResult.hasErrors())
+    //     {
+    //         return new ModelAndView("Adicionar");
+    //     }
+    //     else
+    //     {
+    //         ModelAndView mv = new ModelAndView("redirect:/Index");
 
-            Cliente cAux = clienteRepository.getById(id);
+    //         Cliente cAux = clienteRepository.getById(id);
 
-            cAux.setAtivo(c.getAtivo());
-            cAux.setCPF(c.getCPF());
-            cAux.setDataNascimento(c.getDataNascimento());
-            cAux.setEmail(c.getEmail());
-            cAux.setName(c.getName());
-            cAux.setSexo(c.getSexo());
-            cAux.setSobrenome(c.getSobrenome());
-            cAux.setTelefone(c.getTelefone());
+    //         cAux.setAtivo(c.getAtivo());
+    //         cAux.setCPF(c.getCPF());
+    //         cAux.setDataNascimento(c.getDataNascimento());
+    //         cAux.setEmail(c.getEmail());
+    //         cAux.setName(c.getName());
+    //         cAux.setSexo(c.getSexo());
+    //         cAux.setSobrenome(c.getSobrenome());
+    //         cAux.setTelefone(c.getTelefone());
 
-            clienteRepository.save(cAux);
+    //         clienteRepository.save(cAux);
 
-            return mv;
-        }
-    }
+    //         return mv;
+    //     }
+    // }
 
-    @PostMapping("Excluir/{id}")
-    public ModelAndView excluir(@PathVariable int id)
-    {
-        Cliente c = clienteRepository.getById(id);
+    // @PostMapping("Excluir/{id}")
+    // public ModelAndView excluir(@PathVariable int id)
+    // {
+    //     Cliente c = clienteRepository.getById(id);
 
-        if(c == null)
-        {
-            return new ModelAndView("redirect:/Index");
-        }
-        else
-        {
-            ModelAndView mv = new ModelAndView("redirect:/Index");
+    //     if(c == null)
+    //     {
+    //         return new ModelAndView("redirect:/IndexBackOffice");
+    //     }
+    //     else
+    //     {
+    //         ModelAndView mv = new ModelAndView("redirect:/IndexBackOffice");
 
-            c.setAtivo(false);
+    //         c.setAtivo(false);
 
-            clienteRepository.save(c);
+    //         clienteRepository.save(c);
 
-            return mv;
-        }
-    }
-}
+    //         return mv;
+    //     }
+    // }
+// }
