@@ -81,16 +81,16 @@ public class Produto implements Serializable
 
     private boolean ativo;
 
-    // @ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
-    // private Set<Pedido> pedidos;
+    @ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
+    private Set<Pedido> pedidos;
 
-    // @NotNull(message = "Selecione uma categoria!")
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn
-    // (
-    //     name = "idCategoria", nullable = false
-    // )
-    // private Categoria idCategoria;
+    @NotNull(message = "Selecione uma categoria!")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    (
+        name = "idCategoria", nullable = false
+    )
+    private Categoria idCategoria;
 
     public int getDesconto()
     {
@@ -190,19 +190,22 @@ public class Produto implements Serializable
         this.ativo = ativo;
     }
 
-    // public Set<Pedido> getPedidos() {
-    //     return pedidos;
-    // }
+    public Set<Pedido> getPedidos() {
+        return pedidos;
+    }
 
-    // public void setPedidos(Set<Pedido> pedidos) {
-    //     this.pedidos = pedidos;
-    // }
+    public void setPedidos(Set<Pedido> pedidos) 
+    {
+        this.pedidos = pedidos;
+    }
 
-    public byte[] getImagem() {
+    public byte[] getImagem()
+    {
         return imagem;
     }
 
-    public void setImagem(byte[] imagem) {
+    public void setImagem(byte[] imagem) 
+    {
         this.imagem = imagem;
     }
     

@@ -1,4 +1,4 @@
-package sp.senac.br.petshop.controller;
+package sp.senac.br.petshop.controller.ControllerBackoffice;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sp.senac.br.petshop.model.Cliente;
 import sp.senac.br.petshop.model.Produto;
+//import sp.senac.br.petshop.model.Produto;
 import sp.senac.br.petshop.repository.ClienteRepository;
 import sp.senac.br.petshop.repository.ProdutoRepository;
 import sp.senac.br.petshop.repository.UsuarioRepository;
@@ -143,118 +144,5 @@ public class IndexBackOfficeController {
             return mv;
         }
     }
-    @GetMapping("/produto")
-    public ModelAndView listarProdutos(){
-
-        ModelAndView mv = new ModelAndView("produto");
-        List<Produto> produtos = produtoRepository.findAll();
-        mv.addObject("produto", produtos);
-        
-        return mv;
-    }
-
-    @GetMapping("/cadastroProduto")
-    public ModelAndView addProduto(){
-
-        ModelAndView mv = new ModelAndView("cadastroProduto");
-
-        mv.addObject("produto", new Produto());
-
-        return mv;
-    }
-
-    @PostMapping("/cadastroProduto")
-    public ModelAndView salvarProduto(@RequestParam("fileProduto") MultipartFile file,
-    @ModelAttribute("produto") @Valid Produto p, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
-        {
-            return new ModelAndView("cadastroProduto");
-        }
-        else
-        {
-            ModelAndView mv = new ModelAndView("redirect:/IndexbackOffice");
-                    try{
-                     p.setImagem(file.getBytes());   
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
-
-            p.setAtivo(true);
-
-            produtoRepository.save(p);
-
-            return mv;
-        }
-    }
-
-    @GetMapping("/imagem/{idProduto}")
-    @ResponseBody
-    public byte[] exibirImagem(@PathVariable("idProduto") int idProduto){
-        Produto p = produtoRepository.getById(idProduto);
-        return p.getImagem();
-    }
-
-    @GetMapping("/AlterarProduto/{id}")
-    public ModelAndView alterarProduto(@PathVariable int id){
-        ModelAndView mv = new ModelAndView("Adicionar");
-
-        Produto produto = produtoRepository.getById(id);
-
-        mv.addObject("produto", produto);
-
-        return mv;
-    }
-
-    @PostMapping("/AlterarProduto/{id}")
-    public ModelAndView alterarProduto(@PathVariable int id,
-                                @ModelAttribute("Produto") @Valid Produto p,
-                                BindingResult bindingResult){
-        if(bindingResult.hasErrors())
-        {
-            return new ModelAndView("Adicionar");
-        }
-        else
-        {
-            ModelAndView mv = new ModelAndView("redirect:/IndexbackOffice");
-
-            Produto pAux = produtoRepository.getById(id);
-
-            pAux.setNome(p.getNome());
-            pAux.setAtivo(p.isAtivo());
-            pAux.setCodigoDeBarras(p.getCodigoDeBarras());
-            pAux.setDesconto(p.getDesconto());
-            pAux.setDescricao(p.getDescricao());
-            pAux.setEstoque(p.getEstoque());
-            pAux.setFabricante(p.getFabricante());
-            pAux.setModelo(p.getModelo());
-            pAux.setPreco(p.getPreco());
-            pAux.setImagem(p.getImagem());
-
-            produtoRepository.save(pAux);
-
-            return mv;
-        }
-    }
-
-    // @PostMapping("Excluir/{id}")
-    // public ModelAndView excluirProduto(@PathVariable int id){
-
-    //     Produto produto = produtoRepository.getById(id);
-
-    //     if(produto == null)
-    //     {
-    //         return new ModelAndView("redirect:/IndexBackOffice");
-    //     }
-    //     else
-    //     {
-    //         ModelAndView mv = new ModelAndView("redirect:/IndexBackOffice");
-
-    //         produto.setAtivo(false);
-
-    //         produtoRepository.save(produto);
-
-    //         return mv;
-    //     }
-    // }
-
+    
 }

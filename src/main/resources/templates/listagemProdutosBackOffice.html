@@ -27,16 +27,16 @@
                                                 <td th:text="${produto.nome}"></td>
                                                 <td th:text="${produto.ativo == true? 'Disponivel' : 'Indisponivel'}" th:style="${produto.ativo == true ? 'color: green;' : 'color: red;'}"></td>
                                                 <td>
-                                                    <a class="btn btn-primary col-md-4" th:href="@{/admin/alterar/{id}(id=${produto.idProduto})}">Alterar</a>
+                                                    <a class="btn btn-primary col-md-4" th:href="@{/Indexbackoffice/alterar/{id}(id=${produto.idProduto})}">Alterar</a>
                                                     &nbsp;&nbsp;
-                                                    <a class="btn btn-danger col-md-4 excluiProduto" th:attr="idProduto = ${produto.idProduto}, nomeProduto = ${produto.nome}" th:href="@{/admin/excluir/{id}(id=${produto.idProduto})}">Desabilitar</a>
+                                                    <a class="btn btn-danger col-md-4 excluiProduto" th:attr="idProduto = ${produto.idProduto}, nomeProduto = ${produto.nome}" th:href="@{/Indexbackoffice/excluir/{id}(id=${produto.idProduto})}">Desabilitar</a>
 
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
 
-                                        <a class="btn btn-success" th:href="@{/admin/adicionar}">Adicionar Novo</a>
+                                        <a class="btn btn-success" th:href="@{/Indexbackoffice/adicionar}">Adicionar Novo</a>
 
                                     </div>
                                 </div>
