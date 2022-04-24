@@ -18,15 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import sp.senac.br.petshop.model.Carrinho;
+
 import sp.senac.br.petshop.model.Categoria;
-import sp.senac.br.petshop.model.Cliente;
-import sp.senac.br.petshop.model.Endereco;
 import sp.senac.br.petshop.model.Produto;
 import sp.senac.br.petshop.repository.CategoriaRepository;
-import sp.senac.br.petshop.repository.ClienteRepository;
-import sp.senac.br.petshop.repository.EnderecoRepository;
-import sp.senac.br.petshop.repository.PedidoRepository;
 import sp.senac.br.petshop.repository.ProdutoRepository;
 
 @RestController
@@ -39,14 +34,11 @@ public class ProdutoController {
     @Autowired
     private CategoriaRepository categoriaRepository;
     
-    @Autowired
-    private PedidoRepository pedidoRepository;
+ 
     
-    @Autowired
-    private EnderecoRepository enderecoRepository;
+    
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+
 
 
     @GetMapping()
@@ -126,27 +118,7 @@ public class ProdutoController {
 
         return mv;
     }
-    
-    @PostMapping("/endereco")
-    public ModelAndView endereco(
-            @ModelAttribute("endereco") @Valid Endereco e,
-            BindingResult bindingResult, Authentication authentication)
-    {
 
-        if(bindingResult.hasErrors()){
-            return new ModelAndView("alterarEndereco");
-        }
-        else if(authentication != null){
-            Cliente c = (Cliente) authentication.getPrincipal();
-            e.setUsuario(c);
-
-            enderecoRepository.save(e);
-
-            return new ModelAndView("redirect:/produto/checkout");
-        }
-
-        return new ModelAndView("redirect:/login");
-    }
 
   
 

@@ -67,8 +67,7 @@ public abstract class Usuario implements UserDetails
     @Transient
     private String csenha;
 
-    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-    private Set<Pedido> pedidos;
+
 
     @Column(name = "tipoacesso")
     private int tipoAcesso;

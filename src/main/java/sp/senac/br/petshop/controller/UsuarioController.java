@@ -12,11 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sp.senac.br.petshop.model.Cliente;
 import sp.senac.br.petshop.model.Endereco;
-import sp.senac.br.petshop.model.Pedido;
 import sp.senac.br.petshop.model.Usuario;
 import sp.senac.br.petshop.repository.ClienteRepository;
 import sp.senac.br.petshop.repository.EnderecoRepository;
-import sp.senac.br.petshop.repository.PedidoRepository;
+
 
 import javax.validation.Valid;
 
@@ -32,9 +31,7 @@ public class UsuarioController
         @Autowired
         private ClienteRepository clienteRepository;
 
-        @Autowired
-        private PedidoRepository  pedidoRepository;
-
+        
         @Autowired
         private EnderecoRepository enderecoRepository;
 
@@ -136,38 +133,8 @@ public class UsuarioController
         }
     }
 
-    @GetMapping("/minhaconta")
-    public ModelAndView minhaconta(Authentication authentication) 
-    { 
-        //Mostrar o formulário de cadastro
-        
-        if(authentication != null)
-        {
-            Cliente c = (Cliente)authentication.getPrincipal();
-            c.setEnderecos(enderecoRepository.buscaEnderecos(c));
-            Set<Pedido> pedidos = pedidoRepository.buscaPedidosUsuario(c);
-            ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos).addObject("usuario", c);
-            return mv;
-        }        
-        return new ModelAndView("login");
-    }
-
-    @GetMapping("/detalhespedido/{id}")
-    public ModelAndView pedidos(@PathVariable int id, Authentication authentication)
-     { 
-         //Mostrar o formulário de cadastro
-
-        System.out.println("eWOKEWQIEWEWq");
-        if(authentication != null)
-        {
-            Usuario u = (Usuario)authentication.getPrincipal();
-            u.setEnderecos(enderecoRepository.buscaEnderecos(u));
-            Pedido pedido = pedidoRepository.getById(id);
-            ModelAndView mv = new ModelAndView("detalhepedido").addObject("pedido", pedido).addObject("usuario", u);
-            return mv;
-        }        
-        return new ModelAndView("login");
-    }
+   
+   
 
     @GetMapping("/endereco")
     public ModelAndView endereco()
