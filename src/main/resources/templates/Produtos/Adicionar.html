@@ -113,13 +113,13 @@
                                                     </div>
                                                 </div>
 
-                                                <label class="col-sm-2 col-form-label" for="codigodebarras">Cód.Barras</label>
+                                                <label class="col-sm-2 col-form-label" for="codigoDeBarras">Cód.Barras</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control" id="codigodebarras" name="codigodebarras" th:field="*{produto.codigodebarras}"
-                                                           th:classappend="${#fields.hasErrors('produto.codigodebarras')}? is-invalid">
+                                                    <input type="text" class="form-control" id="codigoDeBarras" name="codigoDeBarras" th:field="*{produto.codigoDeBarras}"
+                                                           th:classappend="${#fields.hasErrors('produto.codigoDeBarras')}? is-invalid">
                                                     <div class="invalid-feedback"
-                                                         th:if="${#fields.hasErrors('produto.codigodebarras')}"
-                                                         th:errors="${produto.codigodebarras}">
+                                                         th:if="${#fields.hasErrors('produto.codigoDeBarras')}"
+                                                         th:errors="${produto.codigoDeBarras}">
                                                     </div>
                                                 </div>
 
@@ -140,17 +140,24 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" for="imagem">Imagem do Produto</label>
                                                 <div class="col-sm-4">  
-                                                    <input type="file" class="form-control" id="imagem"name="fileProduto"
-                                                           th:classappend="${#fields.hasErrors('produto.imagem')}? is-invalid">
+                                                    <input type="file" class="form-control" id="imagem" name="imagem"
+                                                           th:classappend="${#fields.hasErrors('produto.imagem')}? is-invalid"
+                                                           th:field="*{produto.imagem}" accept="image/png, image/jpeg">
                                                     <div class="invalid-feedback"
                                                          th:if="${#fields.hasErrors('produto.imagem')}"
                                                          th:errors="${produto.imagem}">
                                                     </div>
                                                 </div>
 
-                                            <!-- <div class="form-group row">
+                                            <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" >Categorias</label>
-                                                <span class="col-sm-3" th:each="categoria : ${categorias}">
+                                                <div>
+                                                    <select name="idCategoria" id="categoria" class="form-control">
+                                                        <option value="0" selected>Selecione uma categoria</option>
+                                                        <option th:value="${categoria.idCategoria}" th:field="*{produto.idCategoria}" th:each="categoria : ${categorias}" th:text="${categoria.nome}"></option>
+                                                    </select>
+                                                </div>
+                                                <!-- <span class="col-sm-3" th:each="categoria : ${categorias}">
                                                     <input class="form-check-input" name="idCategoria" type="radio" th:value="${categoria.idCategoria}" th:field="*{produto.idCategoria}">
                                                     <label class="form-check-label" th:for="${categoria.nome}"><span th:text="${categoria.nome}"></span></label>
                                                 <br>
@@ -158,9 +165,9 @@
                                                  <div style="width: 100%; margin-top: .25rem;font-size: 80%;color: #dc3545;"
                                                          th:if="${#fields.hasErrors('produto.idCategoria')}"
                                                          th:errors="${produto.idCategoria}">
-                                                 </div>
+                                                 </div> -->
 
-                                            </div> -->
+                                            </div>
 
                                             <div class="form-group row">
                                                 <div class="col-sm-3"></div>

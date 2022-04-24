@@ -14,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -24,6 +25,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.ManyToAny;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "produto")
@@ -72,10 +74,13 @@ public class Produto implements Serializable
     @Max(value = 100,message = "O desconto não pode ultrapassar 100%")
     private int desconto;
 
-    @Lob
-    private byte[]imagem;
+    // @Lob
+    // private byte[]imagem;
+    // @Column(nullable = true, length = 64)
+    private String imagemParaSalvar;
 
-    
+    @Transient
+    private MultipartFile imagem;
 
     private double precoDesconto;
 
@@ -88,7 +93,26 @@ public class Produto implements Serializable
     (
         name = "idCategoria", nullable = false
     )
+
     private Categoria idCategoria;
+    
+    public Categoria getIdCategoria()
+    {
+        return idCategoria;
+    }
+
+    public String getImagemParaSalvar() {
+        return imagemParaSalvar;
+    }
+
+    public void setImagemParaSalvar(String imagemParaSalvar) {
+        this.imagemParaSalvar = imagemParaSalvar;
+    }
+
+    public void setIdCategoria(Categoria c)
+    {
+        this.idCategoria = c;
+    }
 
     public int getDesconto()
     {
@@ -180,7 +204,7 @@ public class Produto implements Serializable
         this.precoDesconto = precoDesconto;
     }
 
-    public boolean isAtivo() {
+    public boolean getAtivo() {
         return ativo;
     }
 
@@ -188,16 +212,13 @@ public class Produto implements Serializable
         this.ativo = ativo;
     }
 
-   
-
-    public byte[] getImagem()
+    public MultipartFile getImagem()
     {
         return imagem;
     }
 
-    public void setImagem(byte[] imagem) 
+    public void setImagem(MultipartFile imagem) 
     {
         this.imagem = imagem;
     }
-    
 }

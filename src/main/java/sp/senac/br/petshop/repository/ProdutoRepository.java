@@ -11,5 +11,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer>
 {
     @Query("SELECT p FROM Produto p WHERE p.ativo = 1")
     List<Produto> buscaProdutosAtivos();
+
+    @Query("SELECT p FROM Produto p ORDER BY p.ativo")
+    List<Produto> buscaProdutosOrdenandoPorStatus();
     
 }

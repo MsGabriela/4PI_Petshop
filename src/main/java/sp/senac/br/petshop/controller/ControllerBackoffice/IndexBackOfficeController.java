@@ -40,7 +40,7 @@ public class IndexBackOfficeController {
     @GetMapping 
     public ModelAndView index()
     {
-        ModelAndView mv = new ModelAndView("/IndexbackOffice");
+        ModelAndView mv = new ModelAndView("/IndexBackoffice");
 
         List<Cliente> clientes = clienteRepository.findAll();
 
