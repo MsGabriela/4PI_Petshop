@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -71,20 +72,23 @@ public class Produto implements Serializable
     @Max(value = 100,message = "O desconto não pode ultrapassar 100%")
     private int desconto;
 
+    @Lob
+    private byte[]imagem;
+
+    
+
     private double precoDesconto;
 
     private boolean ativo;
 
-    // @ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
-    // private Set<Pedido> pedidos;
 
-    // @NotNull(message = "Selecione uma categoria!")
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn
-    // (
-    //     name = "idCategoria", nullable = false
-    // )
-    // private Categoria idCategoria;
+    @NotNull(message = "Selecione uma categoria!")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    (
+        name = "idCategoria", nullable = false
+    )
+    private Categoria idCategoria;
 
     public int getDesconto()
     {
@@ -184,12 +188,16 @@ public class Produto implements Serializable
         this.ativo = ativo;
     }
 
-    // public Set<Pedido> getPedidos() {
-    //     return pedidos;
-    // }
+   
 
-    // public void setPedidos(Set<Pedido> pedidos) {
-    //     this.pedidos = pedidos;
-    // }
+    public byte[] getImagem()
+    {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) 
+    {
+        this.imagem = imagem;
+    }
     
 }

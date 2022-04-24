@@ -67,8 +67,7 @@ public abstract class Usuario implements UserDetails
     @Transient
     private String csenha;
 
-    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-    private Set<Pedido> pedidos;
+
 
     @Column(name = "tipoacesso")
     private int tipoAcesso;
@@ -127,12 +126,12 @@ public abstract class Usuario implements UserDetails
     private String senha;
     private String ConfirmarSenha;
 
-    public Long getIdUser()
+    public Long getIdUsuario()
     {
         return idUsuario;
     }
 
-    public void setIdUser(Long idUser)
+    public void setIdUsuario(Long idUser)
     {
         this.idUsuario = idUser;
     }

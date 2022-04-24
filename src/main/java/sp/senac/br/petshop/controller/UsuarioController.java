@@ -12,12 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sp.senac.br.petshop.model.Cliente;
 import sp.senac.br.petshop.model.Endereco;
-import sp.senac.br.petshop.model.Pedido;
 import sp.senac.br.petshop.model.Usuario;
 import sp.senac.br.petshop.repository.ClienteRepository;
 import sp.senac.br.petshop.repository.EnderecoRepository;
-import sp.senac.br.petshop.repository.PedidoRepository;
-import sp.senac.br.petshop.repository.UsuarioRepository;
+
 
 import javax.validation.Valid;
 
@@ -33,9 +31,7 @@ public class UsuarioController
         @Autowired
         private ClienteRepository clienteRepository;
 
-        @Autowired
-        private PedidoRepository  pedidoRepository;
-
+        
         @Autowired
         private EnderecoRepository enderecoRepository;
 
@@ -44,29 +40,29 @@ public class UsuarioController
         {
             if(authentication != null)
             {
-                Cliente c = (Cliente)authentication.getPrincipal();
+                Cliente c = (Cliente)authentication.getCredentials();
     
                 c.setEnderecos(enderecoRepository.buscaEnderecos(c));
     
-                ModelAndView mv = new ModelAndView("redirect:/login/minhaconta");
+                ModelAndView mv = new ModelAndView("redirect:/login/IndexBackOffice");
                 mv.addObject("usuario", c);
     
                 return mv;
             }
     
-            return new ModelAndView("login");
+            return new ModelAndView("IndexBackOffice");
         }
 
-        @GetMapping("/cadastro")
-        public ModelAndView cadastrar()
+        @GetMapping("/Cadastrar")
+        public ModelAndView Cadastrar()
         {
-            ModelAndView mv = new ModelAndView("cadastro");
+            ModelAndView mv = new ModelAndView("Cadastrar");
             mv.addObject("usuario", new Cliente());
             return mv;
         }
 
-        @PostMapping("/cadastro")
-         public ModelAndView cadastrar(
+        @PostMapping("/Cadastrar")
+         public ModelAndView Cadastrar(
          @ModelAttribute("usuario")  @Valid Cliente c,
          BindingResult bindingResult)
         { 
@@ -74,7 +70,7 @@ public class UsuarioController
 
             if(bindingResult.hasErrors())
             {
-                return new ModelAndView("cadastro");
+                return new ModelAndView("Cadastrar");
             }
             else 
             {
@@ -92,7 +88,7 @@ public class UsuarioController
     @GetMapping("/Alterar/{id}")
     public ModelAndView alterar(@PathVariable int id)
     {
-        ModelAndView mv = new ModelAndView("cadastro");
+        ModelAndView mv = new ModelAndView("Cadastro");
 
         Cliente c = clienteRepository.getById(id);
 
@@ -113,7 +109,7 @@ public class UsuarioController
     {
         if(bindingResult.hasErrors())
         {
-            return new ModelAndView("cadastro");
+            return new ModelAndView("Cadastro");
         }
         else
         {
@@ -137,38 +133,8 @@ public class UsuarioController
         }
     }
 
-    @GetMapping("/minhaconta")
-    public ModelAndView minhaconta(Authentication authentication) 
-    { 
-        //Mostrar o formulário de cadastro
-        
-        if(authentication != null)
-        {
-            Cliente c = (Cliente)authentication.getPrincipal();
-            c.setEnderecos(enderecoRepository.buscaEnderecos(c));
-            Set<Pedido> pedidos = pedidoRepository.buscaPedidosUsuario(c);
-            ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos).addObject("usuario", c);
-            return mv;
-        }        
-        return new ModelAndView("login");
-    }
-
-    @GetMapping("/detalhespedido/{id}")
-    public ModelAndView pedidos(@PathVariable int id, Authentication authentication)
-     { 
-         //Mostrar o formulário de cadastro
-
-        System.out.println("eWOKEWQIEWEWq");
-        if(authentication != null)
-        {
-            Usuario u = (Usuario)authentication.getPrincipal();
-            u.setEnderecos(enderecoRepository.buscaEnderecos(u));
-            Pedido pedido = pedidoRepository.getById(id);
-            ModelAndView mv = new ModelAndView("detalhepedido").addObject("pedido", pedido).addObject("usuario", u);
-            return mv;
-        }        
-        return new ModelAndView("login");
-    }
+   
+   
 
     @GetMapping("/endereco")
     public ModelAndView endereco()
