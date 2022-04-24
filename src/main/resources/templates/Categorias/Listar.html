@@ -72,34 +72,33 @@
             </div>
             <div class="col-md-1"></div>
             <div class="col-12 col-md-9">
-                <h1 style="text-align: center">Gerenciamento de Clientes</h1>
+                <h1 style="text-align: center">Gerenciamento de Categorias</h1>
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Ativo</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="cliente : ${clientes}">
-                            <td th:text="${cliente.nome}"></td>
-                            <td th:text="${cliente.ativo == 1? 'Disponivel' : 'Indisponivel'}"
-                                th:style="${cliente.ativo == 1 ? 'color: green;' : 'color: red;'}"></td>
+                        <tr th:each="categoria : ${categorias}">
+                            <td th:text="${categoria.nome}"></td>
+                            <td th:text="${categoria.ativo == true ? 'Disponivel' : 'Indisponivel'}"
+                                th:style="${categoria.ativo == true ? 'color: green;' : 'color: red;'}"></td>
                             <td>
                                 <a class="btn btn-primary col-md-4"
-                                    th:href="@{/Alterar/{id}(id=${cliente.IdUsuario})}">Alterar</a>
+                                    th:href="@{/Indexbackoffice/categorias/Alterar/{id}(id=${categoria.IdCategoria})}">Alterar</a>
                                 &nbsp;&nbsp;
                                 <a class="btn btn-danger col-md-4 excluirCliente"
-                                    th:attr="id = ${cliente.IdUsuario}, nome = ${cliente.nome}"
-                                    th:href="@{/Excluir/{id}(id=${cliente.IdUsuario})}">Desabilitar</a>
+                                    th:attr="id = ${categoria.IdCategoria}, nome = ${categoria.nome}"
+                                    th:href="@{/Indexbackoffice/categorias/Excluir/{id}(id=${categoria.IdCategoria})}">Desabilitar</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <a class="btn btn-success" th:href="@{/Indexbackoffice/Adicionar}">Adicionar Novo</a>
+                <a class="btn btn-success" th:href="@{/Indexbackoffice/Categorias/Adicionar}">Adicionar Novo</a>
             </div>
         </div>
     </div>

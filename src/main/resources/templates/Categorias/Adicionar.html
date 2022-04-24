@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    </head>
+
+<body>
+<div layout:fragment="conteudo">
+    <!-- ##### Blog Wrapper Area Start ##### -->
+    <div class="single-blog-wrapper">
+
+        <!-- Single Blog Post Thumb -->
+        <div class="single-blog-post-thumb">
+            <img th:src="@{/img/passaralhos.jpg}" alt="" id="bgprincipal">
+        </div>
+
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8">
+                    <div class="regular-page-content-wrapper section-padding-80">
+                        <div class="regular-page-text">
+                            <h2>Cadastre-se agora</h2>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="mb-2">
+                                        <img th:src="@{/images/cadastro.jpg}" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12"
+                                     style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
+
+                                    <form method="POST">
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <label for="nome">Nome</label>
+                                                <div>
+                                                    <input type="text" name="nome" class="form-control"
+                                                           th:classappend="${#fields.hasErrors('categoria.nome')}? is-invalid"
+                                                           id="nome" th:field="${categoria.nome}">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('categoria.nome')}"
+                                                         th:errors="${categoria.nome}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-12">
+                                                <input type="submit" class="btn essence-btn" value="Cadastrar">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>
