@@ -43,14 +43,15 @@ public class UsuarioController
                 Cliente c = (Cliente)authentication.getCredentials();
     
                 c.setEnderecos(enderecoRepository.buscaEnderecos(c));
-    
-                ModelAndView mv = new ModelAndView("redirect:/login/IndexBackOffice");
+                
+                ModelAndView mv = new ModelAndView("IndexBackOffice");
+
                 mv.addObject("usuario", c);
-    
+
                 return mv;
             }
     
-            return new ModelAndView("IndexBackOffice");
+            return new ModelAndView("/login");
         }
 
         @GetMapping("/Cadastrar")

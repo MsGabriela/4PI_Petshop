@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+
+
+<body>
+    <div layout:fragment="conteudo">
+        <div class="page-container">
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="au-card chart-percent-card">
+                                    <div class="container">
+                                        <form method="POST" enctype="multipart/form-data">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="nome">Nome</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="nome" class="form-control"
+                                                           th:classappend="${#fields.hasErrors('produto.nome')}? is-invalid" id="nome" th:field="${produto.nome}">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.nome')}"
+                                                         th:errors="${produto.nome}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="descricao">Descrição</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" th:classappend="${#fields.hasErrors('produto.descricao')}? is-invalid" id="descricao" name="descricao" th:field="*{produto.descricao}"></textarea>
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.descricao')}"
+                                                         th:errors="${produto.descricao}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="preco">Preço Compra</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="preco" name="preco" th:field="*{produto.preco}"
+                                                           th:classappend="${#fields.hasErrors('produto.preco')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.preco')}"
+                                                         th:errors="${produto.preco}">
+                                                    </div>
+                                                </div>
+
+                                                <label class="col-sm-2 col-form-label" for="preco">Desconto (%)</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="desconto" name="desconto" th:field="*{produto.desconto}"
+                                                           th:classappend="${#fields.hasErrors('produto.desconto')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.desconto')}"
+                                                         th:errors="${produto.desconto}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="precoDesconto">Preço com desconto</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" readonly class="form-control" id="precoDesconto" name="precoDesconto" th:field="*{produto.precoDesconto}"
+                                                           th:classappend="${#fields.hasErrors('produto.precoDesconto')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.precoDesconto')}"
+                                                         th:errors="${produto.precoDesconto}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="fabricante">Fabricante</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="fabricante" name="fabricante" th:field="*{produto.fabricante}"
+                                                           th:classappend="${#fields.hasErrors('produto.fabricante')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.fabricante')}"
+                                                         th:errors="${produto.fabricante}">
+                                                    </div>
+                                                </div>
+
+                                                <label class="col-sm-2 col-form-label" for="modelo">Modelo</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="modelo" name="modelo" th:field="*{produto.modelo}"
+                                                           th:classappend="${#fields.hasErrors('produto.modelo')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.modelo')}"
+                                                         th:errors="${produto.modelo}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="estoque">Quantidade</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="estoque" name="estoque" th:field="*{produto.estoque}"
+                                                           th:classappend="${#fields.hasErrors('produto.estoque')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.estoque')}"
+                                                         th:errors="${produto.estoque}">
+                                                    </div>
+                                                </div>
+
+                                                <label class="col-sm-2 col-form-label" for="codigoDeBarras">Cód.Barras</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" id="codigoDeBarras" name="codigoDeBarras" th:field="*{produto.codigoDeBarras}"
+                                                           th:classappend="${#fields.hasErrors('produto.codigoDeBarras')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.codigoDeBarras')}"
+                                                         th:errors="${produto.codigoDeBarras}">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" >Status</label>
+                                                <div class="col-sm-2">
+                                                    <input class="form-check-input" type="radio" name="status" id="valido" value="1" th:field="*{produto.ativo}">
+                                                    <label class="form-check-label" for="valido">Disponível</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input class="form-check-input" type="radio" name="status" id="invalido" value="0" th:field="*{produto.ativo}">
+                                                    <label class="form-check-label" for="invalido">Indisponível</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" for="imagem">Imagem do Produto</label>
+                                                <div class="col-sm-4">  
+                                                    <input type="file" class="form-control" id="imagem" name="imagem"
+                                                           th:classappend="${#fields.hasErrors('produto.imagem')}? is-invalid"
+                                                           th:field="*{produto.imagem}" accept="image/png, image/jpeg">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('produto.imagem')}"
+                                                         th:errors="${produto.imagem}">
+                                                    </div>
+                                                </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" >Categorias</label>
+                                                <div>
+                                                    <select name="idCategoria" id="categoria" class="form-control">
+                                                        <option value="0" selected>Selecione uma categoria</option>
+                                                        <option th:value="${categoria.idCategoria}" th:field="*{produto.idCategoria}" th:each="categoria : ${categorias}" th:text="${categoria.nome}"></option>
+                                                    </select>
+                                                </div>
+                                                <!-- <span class="col-sm-3" th:each="categoria : ${categorias}">
+                                                    <input class="form-check-input" name="idCategoria" type="radio" th:value="${categoria.idCategoria}" th:field="*{produto.idCategoria}">
+                                                    <label class="form-check-label" th:for="${categoria.nome}"><span th:text="${categoria.nome}"></span></label>
+                                                <br>
+                                                </span>
+                                                 <div style="width: 100%; margin-top: .25rem;font-size: 80%;color: #dc3545;"
+                                                         th:if="${#fields.hasErrors('produto.idCategoria')}"
+                                                         th:errors="${produto.idCategoria}">
+                                                 </div> -->
+
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-3">
+                                                    <button type="submit" class="btn btn-success col-sm-12">Salvar</button>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <a class="btn btn-warning col-sm-12" th:href="@{/indexBackOffice/listagemProdutosBackOffice}">Cancelar</a>.
+                                                </div>
+                                                <div class="col-sm-3"></div>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
