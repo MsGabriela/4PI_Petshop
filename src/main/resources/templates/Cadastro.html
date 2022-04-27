@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+<html layout:decorate="~{template.html}">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -9,164 +10,159 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-    </head>
+</head>
 
 <body>
-<div layout:fragment="conteudo">
-    <!-- ##### Blog Wrapper Area Start ##### -->
-    <div class="single-blog-wrapper">
+    <div layout:fragment="conteudo">
+        <div class="single-blog-wrapper">
+            <div class="single-blog-post-thumb">
+                <img th:src="@{/img/passaralhos.jpg}" alt="" id="bgprincipal">
+            </div>
 
-        <!-- Single Blog Post Thumb -->
-        <div class="single-blog-post-thumb">
-            <img th:src="@{/img/passaralhos.jpg}" alt="" id="bgprincipal">
-        </div>
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8">
+                        <div class="regular-page-content-wrapper section-padding-80">
+                            <div class="regular-page-text">
+                                <h2>Cadastre-se agora</h2>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12"
+                                        style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
 
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-8">
-                    <div class="regular-page-content-wrapper section-padding-80">
-                        <div class="regular-page-text">
-                            <h2>Cadastre-se agora</h2>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="mb-2">
-                                        <img th:src="@{/images/cadastro.jpg}" class="img-fluid">
+                                        <form method="POST">
+                                            <div class="form-row">
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="nome">Nome</label>
+                                                    <div>
+                                                        <input type="text" name="nome" class="form-control"
+                                                            th:classappend="${#fields.hasErrors('usuario.nome')}? is-invalid"
+                                                            id="nome" th:field="${usuario.nome}">
+                                                        <div class="invalid-feedback"
+                                                            th:if="${#fields.hasErrors('usuario.nome')}"
+                                                            th:errors="${usuario.nome}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="sobrenome">Sobrenome</label>
+                                                    <div>
+                                                        <input type="text" name="sobrenome" class="form-control"
+                                                            th:classappend="${#fields.hasErrors('usuario.sobrenome')}? is-invalid"
+                                                            id="sobrenome" th:field="${usuario.sobrenome}">
+                                                        <div class="invalid-feedback"
+                                                            th:if="${#fields.hasErrors('usuario.sobrenome')}"
+                                                            th:errors="${usuario.sobrenome}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="DataNascimento">Data de Nascimento</label>
+                                                    <div>
+                                                        <input type="date" name="DataNascimento" class="form-control"
+                                                            th:classappend="${#fields.hasErrors('usuario.DataNascimento')}? is-invalid"
+                                                            id="DataNascimento" th:field="${usuario.DataNascimento}">
+                                                        <div class="invalid-feedback"
+                                                            th:if="${#fields.hasErrors('usuario.DataNascimento')}"
+                                                            th:errors="${usuario.DataNascimento}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="sexo">Gênero</label>
+                                                    <div>
+                                                        <select name="sexo" id="sexo" class="form-control">
+                                                            <option value="1">Masculino</option>
+                                                            <option value="2">Feminino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="CPF">CPF</label>
+                                                    <div>
+                                                        <input type="text" name="CPF" class="form-control"
+                                                            th:classappend="${#fields.hasErrors('usuario.CPF')}? is-invalid"
+                                                            id="CPF" th:field="${usuario.CPF}">
+                                                        <div class="invalid-feedback"
+                                                            th:if="${#fields.hasErrors('usuario.CPF')}"
+                                                            th:errors="${usuario.CPF}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="telefone">Telefone</label>
+                                                    <div>
+                                                        <input type="text" name="telefone" class="form-control"
+                                                            th:classappend="${#fields.hasErrors('usuario.telefone')}? is-invalid"
+                                                            id="telefone" th:field="${usuario.telefone}">
+                                                        <div class="invalid-feedback"
+                                                            th:if="${#fields.hasErrors('usuario.telefone')}"
+                                                            th:errors="${usuario.telefone}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="email">E-mail</label>
+                                                    <div>
+                                                        <input type="text" name="email" class="form-control"
+                                                            th:classappend="${#fields.hasErrors('usuario.email')}? is-invalid"
+                                                            id="email" th:field="${usuario.email}">
+                                                        <div class="invalid-feedback"
+                                                            th:if="${#fields.hasErrors('usuario.email')}"
+                                                            th:errors="${usuario.email}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="ConfirmarEmail">Confirme e-mail</label>
+                                                    <div>
+                                                        <input type="text" class="form-control"
+                                                            th:field="${usuario.ConfirmarEmail}" id="ConfirmarEmail">
+                                                        <div style='display: none;margin-top: .25rem; font-size: 80%; color: #dc3545;'
+                                                            id="erroemail">
+                                                            Confirmação de email não bate!
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="senha">Senha</label>
+                                                    <div>
+                                                        <input type="password" name="senha" class="form-control"
+                                                            th:classappend="${#fields.hasErrors('usuario.hashSenha')}? is-invalid"
+                                                            id="senha" th:field="${usuario.hashSenha}">
+                                                        <div class="invalid-feedback"
+                                                            th:if="${#fields.hasErrors('usuario.hashSenha')}"
+                                                            th:errors="${usuario.hashSenha}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-lg-6 col-md-6">
+                                                    <label for="csenha">Confirme senha</label>
+                                                    <div>
+                                                        <input type="password" name="csenha" class="form-control"
+                                                            id="csenha" th:field="${usuario.csenha}">
+                                                        <div style='display: none;margin-top: .25rem; font-size: 80%; color: #dc3545;'
+                                                            id="errosenha">
+                                                            Confirmação de senha não bate!
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input id="btn-login" type="submit" class="btn essence-btn"
+                                                    value="Cadastro">
+                                            </div>
+                                        </form>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12"
-                                     style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
-
-                                    <form method="POST">
-                                        <div class="form-row">
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <label for="nome">Nome</label>
-                                                <div>
-                                                    <input type="text" name="nome" class="form-control"
-                                                           th:classappend="${#fields.hasErrors('usuario.nome')}? is-invalid"
-                                                           id="nome" th:field="${usuario.nome}">
-                                                    <div class="invalid-feedback"
-                                                         th:if="${#fields.hasErrors('usuario.nome')}"
-                                                         th:errors="${usuario.nome}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <label for="sobrenome">Sobrenome</label>
-                                                <div>
-                                                    <input type="text" name="sobrenome" class="form-control"
-                                                           th:classappend="${#fields.hasErrors('usuario.sobrenome')}? is-invalid"
-                                                           id="sobrenome" th:field="${usuario.sobrenome}">
-                                                    <div class="invalid-feedback"
-                                                         th:if="${#fields.hasErrors('usuario.sobrenome')}"
-                                                         th:errors="${usuario.sobrenome}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <label for="nascimento">Data de Nascimento</label>
-                                                <div>
-                                                    <input type="date" name="nascimento" class="form-control"
-                                                           th:classappend="${#fields.hasErrors('usuario.nascimento')}? is-invalid"
-                                                           id="nascimento" th:field="${usuario.nascimento}">
-                                                    <div class="invalid-feedback"
-                                                         th:if="${#fields.hasErrors('usuario.nascimento')}"
-                                                         th:errors="${usuario.nascimento}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <label for="sexo">Gênero</label>
-                                                <div>
-                                                    <select name="sexo" id="sexo" class="form-control">
-                                                        <option value="1">Masculino</option>
-                                                        <option value="2">Feminino</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <label for="cpf">CPF</label>
-                                                <div>
-                                                    <input type="text" name="cpf" class="form-control"
-                                                           th:classappend="${#fields.hasErrors('usuario.cpf')}? is-invalid"
-                                                           id="cpf" th:field="${usuario.cpf}">
-                                                    <div class="invalid-feedback"
-                                                         th:if="${#fields.hasErrors('usuario.cpf')}"
-                                                         th:errors="${usuario.cpf}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <label for="telefone">Telefone</label>
-                                                <div>
-                                                    <input type="text" name="telefone" class="form-control"
-                                                           th:classappend="${#fields.hasErrors('usuario.telefone')}? is-invalid"
-                                                           id="telefone" th:field="${usuario.telefone}">
-                                                    <div class="invalid-feedback"
-                                                         th:if="${#fields.hasErrors('usuario.telefone')}"
-                                                         th:errors="${usuario.telefone}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <label for="email">E-mail</label>
-                                                <div>
-                                                    <input type="text" name="email" class="form-control"
-                                                           th:classappend="${#fields.hasErrors('usuario.email')}? is-invalid"
-                                                           id="email" th:field="${usuario.email}">
-                                                    <div class="invalid-feedback"
-                                                         th:if="${#fields.hasErrors('usuario.email')}"
-                                                         th:errors="${usuario.email}">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <label for="cemail">Confirme e-mail</label>
-                                                <div>
-                                                    <input type="text" class="form-control"
-                                                           th:field="${usuario.cemail}" id="cemail">
-                                                    <div style='display: none;margin-top: .25rem; font-size: 80%; color: #dc3545;' id="erroemail">
-                                                        Confirmação de email não bate!
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="form-row">
-                                            <div class="form-group col-lg-6 col-md-12">
-                                                <label for="senha">Senha</label>
-                                                <div>
-                                                    <input type="password" name="senha" class="form-control"
-                                                           th:classappend="${#fields.hasErrors('usuario.hashSenha')}? is-invalid"
-                                                           id="senha" th:field="${usuario.hashSenha}">
-                                                    <div class="invalid-feedback"
-                                                         th:if="${#fields.hasErrors('usuario.hashSenha')}"
-                                                         th:errors="${usuario.hashSenha}">
-                                                    </div>
-                                                </div>
-                                            </div> -->
-
-                                            <!-- <div class="form-group col-lg-6 col-md-12">
-                                                <label for="csenha">Confirme senha</label>
-                                                <div>
-                                                    <input type="password" name="csenha" class="form-control" id="csenha" th:field="${usuario.csenha}">
-                                                    <div style='display: none;margin-top: .25rem; font-size: 80%; color: #dc3545;' id="errosenha">
-                                                        Confirmação de senha não bate!
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-12">
-                                                <input type="submit" class="btn essence-btn" value="Cadastrar">
-                                            </div>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -175,27 +171,24 @@
             </div>
         </div>
     </div>
-
-</div>
-
 </body>
 
 </html>
-<script>
-    $("form").on("submit", function(event){
+<!-- <script>
+    $("form").on("submit", function (event) {
         var email = $("#email").val();
         var cemail = $("#cemail").val();
         var senha = $("#senha").val();
         var csenha = $("#csenha").val();
         var erro = false;
 
-        if(email != cemail && email != "") {
+        if (email != cemail && email != "") {
             $("#erroemail").show();
             $("#cemail").addClass("is-invalid");
             erro = true;
         }
 
-        if(senha != csenha && senha != "") {
+        if (senha != csenha && senha != "") {
             $("#errosenha").show();
             $("#csenha").addClass("is-invalid");
             erro = true;
@@ -212,4 +205,4 @@
         return true;
 
     });
-</script>
+</script> -->

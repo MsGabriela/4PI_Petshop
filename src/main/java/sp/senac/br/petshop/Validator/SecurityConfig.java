@@ -1,7 +1,5 @@
 package sp.senac.br.petshop.Validator;
 
-
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,54 +10,48 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig  extends WebSecurityConfigurerAdapter
-{
-    public static PasswordEncoder plainPasswordEncoder()
-    {
-        return new PasswordEncoder() 
-        {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    public static PasswordEncoder plainPasswordEncoder() {
+        return new PasswordEncoder() {
             @Override
-            public String encode(CharSequence cs)
-            {
+            public String encode(CharSequence cs) {
                 return cs.toString();
             }
 
             @Override
-            public boolean matches(CharSequence cs, String salt)
-            {
+            public boolean matches(CharSequence cs, String salt) {
                 return cs.toString().equals(salt);
             }
         };
     }
 
-    public static PasswordEncoder bcryptPasswordEncoder()
-    {
+    public static PasswordEncoder bcryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder()
-    {
+    public PasswordEncoder passwordEncoder() {
         return bcryptPasswordEncoder();
     }
 
     @Override
-    protected void configure (HttpSecurity http) throws Exception
-    {
+    protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/img**", "/js/**", "/fonts/**", "/scss/**", "/vendor/**, /json/**", "/src/main/resources/templates/**").permitAll()
+                .antMatchers("/css/**", "/img**", "/js/**", "/fonts/**", "/scss/**", "/vendor/**, /json/**",
+                        "/src/main/resources/templates/**")
+                .permitAll()
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .usernameParameter("email")
-                    .passwordParameter("senha")
-                    .defaultSuccessUrl("/index").permitAll()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .passwordParameter("senha")
+                .defaultSuccessUrl("/index").permitAll()
                 .and()
                 .logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login?logout")
-                    .invalidateHttpSession(true).deleteCookies("JSESSIONID");
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true).deleteCookies("JSESSIONID");
     }
 
 }

@@ -31,9 +31,6 @@ public class UsuarioController
         @Autowired
         private ClienteRepository clienteRepository;
 
-        
-        @Autowired
-        private EnderecoRepository enderecoRepository;
 
         @GetMapping
         public ModelAndView login(Authentication authentication)
@@ -41,8 +38,6 @@ public class UsuarioController
             if(authentication != null)
             {
                 Cliente c = (Cliente)authentication.getCredentials();
-    
-                c.setEnderecos(enderecoRepository.buscaEnderecos(c));
                 
                 ModelAndView mv = new ModelAndView("IndexBackOffice");
 
@@ -54,15 +49,15 @@ public class UsuarioController
             return new ModelAndView("/login");
         }
 
-        @GetMapping("/Cadastrar")
+        @GetMapping("/Cadastro")
         public ModelAndView Cadastrar()
         {
-            ModelAndView mv = new ModelAndView("Cadastrar");
+            ModelAndView mv = new ModelAndView("Cadastro");
             mv.addObject("usuario", new Cliente());
             return mv;
         }
 
-        @PostMapping("/Cadastrar")
+        @PostMapping("/Cadastro")
          public ModelAndView Cadastrar(
          @ModelAttribute("usuario")  @Valid Cliente c,
          BindingResult bindingResult)
@@ -71,7 +66,7 @@ public class UsuarioController
 
             if(bindingResult.hasErrors())
             {
-                return new ModelAndView("Cadastrar");
+                return new ModelAndView("Cadastro");
             }
             else 
             {
@@ -86,21 +81,21 @@ public class UsuarioController
             }
         }
 
-    @GetMapping("/Alterar/{id}")
-    public ModelAndView alterar(@PathVariable int id)
-    {
-        ModelAndView mv = new ModelAndView("Cadastro");
+    // @GetMapping("/Alterar/{id}")
+    // public ModelAndView alterar(@PathVariable int id)
+    // {
+    //     ModelAndView mv = new ModelAndView("Cadastro");
 
-        Cliente c = clienteRepository.getById(id);
+    //     Cliente c = clienteRepository.getById(id);
 
-        int espaco = c.getNome().indexOf(" ");
+    //     int espaco = c.getNome().indexOf(" ");
 
-        c.setSobrenome(c.getNome().substring(espaco + 1));
-        c.setNome(c.getNome().substring(0, espaco));
+    //     c.setSobrenome(c.getNome().substring(espaco + 1));
+    //     c.setNome(c.getNome().substring(0, espaco));
 
-        mv.addObject("usuario", c);
-        return mv;
-    }
+    //     mv.addObject("usuario", c);
+    //     return mv;
+    // }
 
 
     @PostMapping("/Alterar/{id}")
@@ -137,35 +132,35 @@ public class UsuarioController
    
    
 
-    @GetMapping("/endereco")
-    public ModelAndView endereco()
-    {
-        ModelAndView mv = new ModelAndView("alterarEndereco");
-        mv.addObject("endereco", new Endereco());
-        return mv;
-    }
+    // @GetMapping("/endereco")
+    // public ModelAndView endereco()
+    // {
+    //     ModelAndView mv = new ModelAndView("alterarEndereco");
+    //     mv.addObject("endereco", new Endereco());
+    //     return mv;
+    // }
 
-    @PostMapping("/endereco")
-    public ModelAndView endereco(
-            @ModelAttribute("endereco") @Valid Endereco e,
-            BindingResult bindingResult, Authentication authentication)
+    // @PostMapping("/endereco")
+    // public ModelAndView endereco(
+    //         @ModelAttribute("endereco") @Valid Endereco e,
+    //         BindingResult bindingResult, Authentication authentication)
             
-    {
+    // {
 
-        if(bindingResult.hasErrors())
-        {
-            return new ModelAndView("alterarEndereco");
-        }
-        else if(authentication != null)
-        {
-            Usuario u = (Usuario) authentication.getPrincipal();
-            e.setUsuario(u);
+    //     if(bindingResult.hasErrors())
+    //     {
+    //         return new ModelAndView("alterarEndereco");
+    //     }
+    //     else if(authentication != null)
+    //     {
+    //         Usuario u = (Usuario) authentication.getPrincipal();
+    //         e.setUsuario(u);
 
-            enderecoRepository.save(e);
+    //         enderecoRepository.save(e);
 
-            return new ModelAndView("redirect:/login");
-        }
+    //         return new ModelAndView("redirect:/login");
+    //     }
 
-        return new ModelAndView("redirect:/login");
-    }
+    //     return new ModelAndView("redirect:/login");
+    // }
 }
