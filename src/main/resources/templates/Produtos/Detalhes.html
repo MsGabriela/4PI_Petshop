@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html layout:decorate="~{template.html}">
 
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
         <div class="nav navbar navbar-expand-lg  bg-primary-color" id="navbar">
             <div class="container">
                 <a href="#" class="navbar-brand segundary-color">
-                    <img src="assests/img/logo.png" alt="Pet">
+                    <img src="../../static/img/logo.png" alt="Pet">
                     <span>Zootopia</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-items"
@@ -53,51 +53,54 @@
                 </div>
     </header>
 
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
-                <div class="regular-page-content-wrapper section-padding-80">
-                    <div class="regular-page-text">
-                        <h2>Detalhes do Produto</h2>
-                        <div class="row gx-5">
-                            <div class="col-lg-12 col-md-12 mb-5 mt-5"
-                                style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
+    <main layout:fragment="conteudo">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8">
+                    <div class="regular-page-content-wrapper section-padding-80">
+                        <div class="regular-page-text">
+                            <h2>Detalhes do Produto</h2>
+                            <div class="row gx-5">
+                                <div class="col-lg-12 col-md-12 mb-5 mt-5"
+                                    style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
 
-                                <section class="single_product_details_area d-flex align-items-center">
+                                    <section class="single_product_details_area d-flex align-items-center">
 
-                                    <div class="single_product_thumb clearfix" style="text-align: center">
-                                        <img src="assests/img/produto10.jpg" alt="">
-                                    </div>
-
-
-                                    <div class="single_product_desc clearfix">
-                                        <img src="assests/img/produto10.jpg" alt="" style="display: none">
-                                        <span th:text="${produto.fabricante}">Pedigree</span>
-                                        <a href="cart.html">
-                                            <h2 class="nome-produto" th:text="${produto.nome}">Ração para filhotes
-                                                Pedigree</h2>
-                                            <span th:if="${produto.estoque <= 0}"></span>
-                                        </a>
-                                        <p class="product-price" th:text="'R$' + ${produto.preco}">R$59.99</p>
-                                        <p class="product-desc" th:text="${produto.descricao}">Ração para filhotes da
-                                            pedigree</p>
-
-                                        <div class="cart-fav-box d-flex align-items-center">
-                                            <button type="button" name="addtocart" value="5" class="btn essence-btn"
-                                                style="border-radius: 5px; border: solid black 1px;">
-                                                Adicionar ao carrinho
-                                            </button>
+                                        <div class="single_product_thumb clearfix" style="text-align: center">
+                                            <img src="assests/img/produto10.jpg" alt="">
                                         </div>
-                                    </div>
-                                </section>
+
+
+                                        <div class="single_product_desc clearfix">
+                                            <img src="../../static/img/RacaoGatoAdulto.jpg"
+                                                alt="" style="display: none">
+                                            <span th:text="${produto.fabricante}">Pedigree</span>
+                                            <a href="cart.html">
+                                                <h2 class="nome-produto" th:text="${produto.nome}">Ração para filhotes
+                                                    Pedigree</h2>
+                                                <span th:if="${produto.estoque <= 0}"></span>
+                                            </a>
+                                            <p class="product-price" th:text="'R$' + ${produto.preco}">R$59.99</p>
+                                            <p class="product-desc" th:text="${produto.descricao}">Ração para filhotes
+                                                da
+                                                pedigree</p>
+
+                                            <div class="cart-fav-box d-flex align-items-center">
+                                                <button type="button" name="addtocart" value="5" class="btn essence-btn"
+                                                    style="border-radius: 5px; border: solid black 1px;">
+                                                    Adicionar ao carrinho
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+    </main>
     <footer class="container-fluid bg-white-color" id="footer">
         <div class="container">
             <div class="row">

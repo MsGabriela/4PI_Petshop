@@ -72,40 +72,34 @@
             </div>
             <div class="col-md-1"></div>
             <div class="col-12 col-md-9">
-                <h1 style="text-align: center">Gerenciamento de Produtos</h1>
+                <h1 style="text-align: center">Gerenciamento de Clientes</h1>
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
+                            <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Ativo</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="produto : ${produtos}">
-                            <td th:text="${produto.nome}"></td>
-                            <td th:text="${produto.ativo == true ? 'Disponivel' : 'Indisponivel'}"
-                                th:style="${produto.ativo == true ? 'color: green;' : 'color: red;'}"></td>
+                        <tr th:each="cliente : ${clientes}">
+                            <td th:text="${cliente.nome}"></td>
+                            <td th:text="${cliente.ativo == 1 ? 'Disponivel' : 'Indisponivel'}"
+                                th:style="${cliente.ativo == 1 ? 'color: green;' : 'color: red;'}"></td>
                             <td>
                                 <a class="btn btn-primary col-md-4"
-                                th:href="@{/Indexbackoffice/Produtos/Detalhes/{id}(id=${produto.IdProduto})}">Detalhes</a>
-                                
+                                    th:href="@{/Indexbackoffice/Usuarios/Alterar/{id}(id=${cliente.IdUsuario})}">Alterar</a>
                                 &nbsp;&nbsp;
-
-                                <a class="btn btn-warning col-md-4"
-                                    th:href="@{/Indexbackoffice/Produtos/Alterar/{id}(id=${produto.IdProduto})}">Alterar</a>
-
-                                &nbsp;&nbsp;
-
                                 <a class="btn btn-danger col-md-4 excluirCliente"
-                                    th:attr="id = ${produto.IdCategoria}, nome = ${produto.nome}"
-                                    th:href="@{/Indexbackoffice/Produtos/Excluir/{id}(id=${produto.IdProduto})}">Desabilitar</a>
+                                    th:attr="id = ${cliente.IdUsuario}, nome = ${cliente.nome}"
+                                    th:href="@{/Indexbackoffice/Usuarios/Excluir/{id}(id=${cliente.IdUsuario})}">Desabilitar</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <a class="btn btn-success" th:href="@{/Indexbackoffice/Produtos/Adicionar}">Adicionar Novo</a>
+                <a class="btn btn-success" th:href="@{/Indexbackoffice/Adicionar}">Adicionar Novo</a>
             </div>
         </div>
     </div>

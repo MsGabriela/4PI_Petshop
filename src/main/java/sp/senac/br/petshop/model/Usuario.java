@@ -28,7 +28,7 @@ public abstract class Usuario implements UserDetails
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idusuario")
-    private Long idUsuario;
+    private int idUsuario;
 
     @NotBlank(message = "Preenchar o nome!")
     @Size(max = 100)
@@ -126,12 +126,12 @@ public abstract class Usuario implements UserDetails
     private String senha;
     private String ConfirmarSenha;
 
-    public Long getIdUsuario()
+    public int getIdUsuario()
     {
         return idUsuario;
     }
 
-    public void setIdUsuario(Long idUser)
+    public void setIdUsuario(int idUser)
     {
         this.idUsuario = idUser;
     }
