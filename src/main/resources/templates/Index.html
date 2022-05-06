@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html layout:decorate="~{template.html}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
@@ -20,33 +21,35 @@
 <body>
 
     <!-- slider principal -->
-<main layout:fragment="conteudo">
-    <section class="col-md-12 col-sm-12" id="heroArea">
-        <img th:src="@{/img/FilhotesDogos.jpg}" class="roudede mx-auto d-block" alt="">
-    </section>
+    <main layout:fragment="conteudo">
+        <section class="col-md-12 col-sm-12" id="heroArea">
+            <img th:src="@{/img/FilhotesDogos.jpg}" class="roudede mx-auto d-block" alt="">
+        </section>
 
 
-    <section class="col-md-12 text-center" id="conhecaProdutos">
-        <h3>Conheça alguns dos nossos Produtos</h3>
-        <div class="container px-5">
-            <div class="row gx-5">
-                <div class="col-lg-4 col-md-4 " th:each="produto : ${produtos}">
-                    <div class="card" style="width: 16rem;">
-                        <img th:src="@{/img/RacaoGatoAdulto.jpg}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 th:text="${produto.nome}">Card title</h5>
-                            <p th:text="${produto.descricao} + ' R$' + ${produto.preco}">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
-                            <!-- <a th:href="/detalhesProduto?idProduto=${produto.idProduto}" class="btn btn-primary">Mais informações</a> -->
-                            <a href="#" class="btn btn-primary">Mais informações</a>
+        <section class="col-md-12 text-center" id="conhecaProdutos">
+            <h3>Conheça alguns dos nossos Produtos</h3>
+            <div class="container px-5">
+                <div class="row gx-5">
+                    <div class="col-lg-4 col-md-4 " th:each="produto : ${produtos}">
+                        <div class="card" style="width: 16rem;">
+                            <img th:src="@{/img/RacaoGatoAdulto.jpg}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 th:text="${produto.nome}">Card title</h5>
+                                <p th:text="${produto.descricao} + ' R$' + ${produto.preco}"></p>
+                                <div class="card-footer">
+                                    <!-- <a th:href="@{/Detalhes/{id}(id=${produto.idProduto})" class="btn btn-primary">Mais informações</a> -->
+                                    <a class="btn btn-success"
+                                        th:href="@{/adicionarCarrinho/{id}(id=${produto.idProduto})}">Adicionar ao
+                                        Carrinho</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 </body>
 
 </html>

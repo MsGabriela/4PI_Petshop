@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Petshop Zootopia</title>
+</head>
+
+<body>
+
+    <!-- slider principal -->
+    <main layout:fragment="conteudo">
+        <section>
+            <div class="container mt-5">
+                <div class="row mb-5">
+                    <div class="col-lg-8">
+                        <div class="cart">
+                            <div class="cart-wrapper">
+                                <div class="cart-header text-center">
+                                    <div class="row">
+                                        <div class="col-5">Produto</div>
+                                        <div class="col-2">Preço</div>
+                                        <div class="col-2">Quantidade</div>
+                                        <div class="col-2">Total</div>
+                                        <div class="col-1"></div>
+                                    </div>
+                                </div>
+                                <div class="cart-body">
+
+                                    <div class="cart-item" th:each="item : ${listaItems}">
+                                        <div class="row d-flex align-items-center text-center">
+                                            <div class="col-5">
+                                                <div class="d-flex align-items-center">
+                                                    <a href="detail.html">
+                                                        <img class="cart-item-img"
+                                                            src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/product-square-ian-dooley-347968-unsplash.jpg"
+                                                            alt="...">
+                                                    </a>
+                                                    <div class="cart-title text-start">
+                                                        <a class="text-uppercase text-dark" href=""
+                                                            th:text="${item.produto.nome}"><strong></strong></a><br>
+                                                        <span class="text-muted text-sm"
+                                                            th:text="${item.produto.descricao}"></span><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2" th:text="${item.valorUnitario}"></div>
+                                            <div class="col-2">
+                                                <div class="d-flex align-items-center">
+                                                    <a class="btn btn-items btn-items-decrease"
+                                                     th:href="@{/Alterar/{id}/{acao}(id=${item.produto.idProduto},acao=${0})}"
+                                                     >-</a>
+                                                    <input class="form-control text-center input-items" type="text"
+                                                        th:value="${item.quantidade}">
+                                                    <a class="btn btn-items btn-items-increase"
+                                                    th:href="@{/Alterar/{id}/{acao}(id=${item.produto.idProduto},acao=${1})}"
+                                                    >+</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-2 text-center" th:text="'R$ ' + ${item.valorTotal}"></div>
+                                            <div class="col-1 text-center"><a class="cart-remove"
+                                                th:href="@{/Remover/{id}/(id=${item.produto.idProduto})}"> <i
+                                                        class="fa fa-times"></i></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-5 d-flex justify-content-between flex-column flex-lg-row">
+                            <a class="btn btn-link text-muted" href="/">
+                                <i class="fa fa-chevron-left"></i>
+                                Continue Comprando
+                            </a>
+                            <a class="btn btn-dark" href="checkout1.html">
+                                Finalizar Compra
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="block mb-5">
+                            <div class="block-header">
+                                <h6 class="text-uppercase mb-0">Detalhes do Pedido</h6>
+                            </div>
+                            <div class="block-body bg-light pt-1">
+                                <p class="text-sm">O frete é calculado com base da distancia.</p>
+                                <ul class="order-summary mb-0 list-unstyled">
+                                    <li class="order-summary-item">
+                                        <!-- Valor total dos produtos dentro do carrinho -->
+                                        <span>sub-total do Pedido:
+                                        </span>
+                                        <span  th:text="'R$ ' + ${compra.valorTotal}"> </span></li>
+                                        <!-- Valor do frete( Precisa Programar) -->
+                                        <li class="order-summary-item"><span>Frete</span>
+                                        <span>0</span>
+                                    </li>
+                                    <!-- Valor total com o Frete ( Programar o frete) -->
+                                    <li class="order-summary-item border-0"><span>Total: </span>
+                                        <strong class="order-summary-total"
+                                        th:text="'R$ ' + ${compra.valorTotal}"></strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

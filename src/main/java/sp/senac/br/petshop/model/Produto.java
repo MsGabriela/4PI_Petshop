@@ -1,7 +1,6 @@
 package sp.senac.br.petshop.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -22,9 +19,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.ManyToAny;
 import org.springframework.format.annotation.NumberFormat;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
@@ -220,5 +215,27 @@ public class Produto implements Serializable
     public void setImagem(MultipartFile imagem) 
     {
         this.imagem = imagem;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + idProduto;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Produto other = (Produto) obj;
+        if (idProduto != other.idProduto)
+            return false;
+        return true;
     }
 }
