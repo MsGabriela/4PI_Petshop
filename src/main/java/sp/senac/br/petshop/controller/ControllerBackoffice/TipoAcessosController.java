@@ -33,7 +33,7 @@ public class TipoAcessosController {
 
         List<tipoAcesso> tiposAcessos = tipoAcessoRepository.findAll();
 
-        mv.addObject("tipoAcesso", tiposAcessos);
+        mv.addObject("tipoAcessos", tiposAcessos);
 
         return mv;
     }

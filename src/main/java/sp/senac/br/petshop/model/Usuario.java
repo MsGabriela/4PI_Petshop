@@ -5,9 +5,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-//import sp.senac.br.pet.constraint.FieldMatch;
-
-
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,8 +16,7 @@ import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "usuario")
-public abstract class Usuario implements UserDetails
-{
+public abstract class Usuario implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +38,8 @@ public abstract class Usuario implements UserDetails
     @Email(message = "Email inválido!")
     private String email;
 
+    @ManyToMany
+    private List<tipoAcesso> tiposAcessos;
 
     private boolean ativo;
     

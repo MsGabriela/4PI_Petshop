@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import sp.senac.br.petshop.model.Funcionario;
+import sp.senac.br.petshop.model.tipoAcesso;
 import sp.senac.br.petshop.repository.FuncionarioRepository;
+import sp.senac.br.petshop.repository.TipoAcessoRepository;
 import sp.senac.br.petshop.repository.UsuarioRepository;
 
 @RestController
@@ -26,7 +29,14 @@ public class UsuarioBackOfficeControler {
     UsuarioRepository usuarioRepository;
     
     @Autowired
-    private FuncionarioRepository funcianarioRepository;
+    FuncionarioRepository funcianarioRepository;
+
+    @Autowired
+    TipoAcessoRepository tipoAcessoRepository;
+
+    private BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     @GetMapping
     public ModelAndView Listar() {
@@ -34,7 +44,7 @@ public class UsuarioBackOfficeControler {
 
         List<Funcionario> funcionario = funcianarioRepository.findAll();
 
-        mv.addObject("funcionario", funcionario);
+        mv.addObject("funcionarios", funcionario);
 
         return mv;
     }
@@ -43,7 +53,10 @@ public class UsuarioBackOfficeControler {
     public ModelAndView Adicionar() {
         ModelAndView mv = new ModelAndView("/Usuarios/Adicionar");
 
+        List<tipoAcesso> tipoAcessos = tipoAcessoRepository.findAll();
+
         mv.addObject("funcionario", new Funcionario());
+        mv.addObject("tipoAcessos", tipoAcessos);
 
         return mv;
     }
@@ -57,6 +70,7 @@ public class UsuarioBackOfficeControler {
 
             f.setAtivo(true);
 
+            f.setHashSenha(passwordEncoder().encode(f.getHashSenha()));
             funcianarioRepository.save(f);
 
             return mv;

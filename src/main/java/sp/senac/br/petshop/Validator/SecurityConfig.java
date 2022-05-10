@@ -1,7 +1,11 @@
 package sp.senac.br.petshop.Validator;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -11,19 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    public static PasswordEncoder plainPasswordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence cs) {
-                return cs.toString();
-            }
 
-            @Override
-            public boolean matches(CharSequence cs, String salt) {
-                return cs.toString().equals(salt);
-            }
-        };
-    }
 
     public static PasswordEncoder bcryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -32,6 +24,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return bcryptPasswordEncoder();
+    }
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        // auth.jdbcAuthentication().dataSource(dataSource)
+        // .usersByUsernameQuery("select email as username, senha as password, 1 as enable from usuario where email=?")
     }
 
     @Override
