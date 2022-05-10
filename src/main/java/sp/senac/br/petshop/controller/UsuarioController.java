@@ -57,29 +57,29 @@ public class UsuarioController
             return mv;
         }
 
-        @PostMapping("/Cadastro")
-         public ModelAndView Cadastrar(
-         @ModelAttribute("usuario")  @Valid Cliente c,
-         BindingResult bindingResult)
-        { 
-            //Concluir o cadastro
+        // @PostMapping("/Cadastro")
+        //  public ModelAndView Cadastrar(
+        //  @ModelAttribute("usuario")  @Valid Cliente c,
+        //  BindingResult bindingResult)
+        // { 
+        //     //Concluir o cadastro
 
-            if(bindingResult.hasErrors())
-            {
-                return new ModelAndView("Cadastro");
-            }
-            else 
-            {
-                ModelAndView mv = new ModelAndView("redirect:/login");
-                c.setTipoAcesso(1);
-                c.setAtivo(true);
-                c.setNome(c.getNome() + " " + c.getSobrenome());
-                c.setSenha(c.getHashSenha());
-                clienteRepository.save(c); 
+        //     if(bindingResult.hasErrors())
+        //     {
+        //         return new ModelAndView("Cadastro");
+        //     }
+        //     else 
+        //     {
+        //         ModelAndView mv = new ModelAndView("redirect:/login");
+        //         c.setTipoAcesso(1);
+        //         c.setAtivo(true);
+        //         c.setNome(c.getNome() + " " + c.getSobrenome());
+        //         c.setSenha(c.getHashSenha());
+        //         clienteRepository.save(c); 
 
-                return mv;
-            }
-        }
+        //         return mv;
+        //     }
+        // }
 
     // @GetMapping("/Alterar/{id}")
     // public ModelAndView alterar(@PathVariable int id)
@@ -98,36 +98,36 @@ public class UsuarioController
     // }
 
 
-    @PostMapping("/Alterar/{id}")
-    public ModelAndView alterar(@PathVariable int id,
-                                @ModelAttribute("usuario")  @Valid Cliente c,
-                                BindingResult bindingResult, Authentication authentication)
-    {
-        if(bindingResult.hasErrors())
-        {
-            return new ModelAndView("Cadastro");
-        }
-        else
-        {
-            ModelAndView mv = new ModelAndView("redirect:/login");
+    // @PostMapping("/Alterar/{id}")
+    // public ModelAndView alterar(@PathVariable int id,
+    //                             @ModelAttribute("usuario")  @Valid Cliente c,
+    //                             BindingResult bindingResult, Authentication authentication)
+    // {
+    //     if(bindingResult.hasErrors())
+    //     {
+    //         return new ModelAndView("Cadastro");
+    //     }
+    //     else
+    //     {
+    //         ModelAndView mv = new ModelAndView("redirect:/login");
 
-            Cliente cliente = clienteRepository.getById(id);
-            cliente.setNome( c.getNome() + " " + c.getSobrenome());
-            cliente.setSobrenome(c.getSobrenome());
-            cliente.setSenha(c.getHashSenha());
-            cliente.setCPF(c.getCPF());
-            cliente.setEmail(c.getEmail());
-            cliente.setDataNascimento(c.getDataNascimento());
-            cliente.setSexo(c.getSexo());
-            cliente.setTelefone(c.getTelefone());
+    //         Cliente cliente = clienteRepository.getById(id);
+    //         cliente.setNome( c.getNome() + " " + c.getSobrenome());
+    //         cliente.setSobrenome(c.getSobrenome());
+    //         cliente.setSenha(c.getHashSenha());
+    //         cliente.setCPF(c.getCPF());
+    //         cliente.setEmail(c.getEmail());
+    //         cliente.setDataNascimento(c.getDataNascimento());
+    //         cliente.setSexo(c.getSexo());
+    //         cliente.setTelefone(c.getTelefone());
 
-            clienteRepository.save(cliente);
+    //         clienteRepository.save(cliente);
 
-            authentication.setAuthenticated(false);
+    //         authentication.setAuthenticated(false);
 
-            return mv;
-        }
-    }
+    //         return mv;
+    //     }
+    // }
 
    
    

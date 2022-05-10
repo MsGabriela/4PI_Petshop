@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sp.senac.br.petshop.model.Cliente;
 import sp.senac.br.petshop.model.Produto;
-import sp.senac.br.petshop.model.Usuario;
 import sp.senac.br.petshop.repository.ProdutoRepository;
 
 @RestController

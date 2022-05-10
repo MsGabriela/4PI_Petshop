@@ -14,11 +14,11 @@
                 <label for="nome">Nome</label>
                 <div>
                     <input type="text" name="nome" class="form-control"
-                           th:classappend="${#fields.hasErrors('cliente.nome')}? is-invalid"
-                           id="nome" th:field="${cliente.nome}">
+                           th:classappend="${#fields.hasErrors('funcionario.nome')}? is-invalid"
+                           id="nome" th:field="${funcionario.nome}">
                     <div class="invalid-feedback"
-                         th:if="${#fields.hasErrors('cliente.nome')}"
-                         th:errors="${cliente.nome}">
+                         th:if="${#fields.hasErrors('funcionario.nome')}"
+                         th:errors="${funcionario.nome}">
                     </div>
                 </div>
             </div>
@@ -26,35 +26,12 @@
                 <label for="sobrenome">Sobrenome</label>
                 <div>
                     <input type="text" name="sobrenome" class="form-control"
-                           th:classappend="${#fields.hasErrors('cliente.sobrenome')}? is-invalid"
-                           id="sobrenome" th:field="${cliente.sobrenome}">
+                           th:classappend="${#fields.hasErrors('funcionario.sobrenome')}? is-invalid"
+                           id="sobrenome" th:field="${funcionario.sobrenome}">
                     <div class="invalid-feedback"
-                         th:if="${#fields.hasErrors('cliente.sobrenome')}"
-                         th:errors="${cliente.sobrenome}">
+                         th:if="${#fields.hasErrors('funcionario.sobrenome')}"
+                         th:errors="${funcionario.sobrenome}">
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-lg-6 col-md-12">
-                <label for="dataNascimento">Data de Nascimento</label>
-                <div>
-                    <input type="date" name="dataNascimento" class="form-control"
-                           th:classappend="${#fields.hasErrors('cliente.dataNascimento')}? is-invalid"
-                           id="dataNascimento" th:field="${cliente.dataNascimento}">
-                    <div class="invalid-feedback"
-                         th:if="${#fields.hasErrors('cliente.dataNascimento')}"
-                         th:errors="${cliente.dataNascimento}">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col-lg-6 col-md-12">
-                <label for="sexo">Gênero</label>
-                <div>
-                    <select name="sexo" id="sexo" class="form-control">
-                        <option value="1">Masculino</option>
-                        <option value="2">Feminino</option>
-                    </select>
                 </div>
             </div>
         </div>
@@ -63,23 +40,11 @@
                 <label for="CPF">CPF</label>
                 <div>
                     <input type="text" name="CPF" class="form-control"
-                           th:classappend="${#fields.hasErrors('cliente.CPF')}? is-invalid"
-                           id="CPF" th:field="${cliente.CPF}">
+                           th:classappend="${#fields.hasErrors('funcionario.CPF')}? is-invalid"
+                           id="CPF" th:field="${funcionario.CPF}">
                     <div class="invalid-feedback"
-                         th:if="${#fields.hasErrors('cliente.CPF')}"
-                         th:errors="${cliente.CPF}">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col-lg-6 col-md-12">
-                <label for="telefone">Telefone</label>
-                <div>
-                    <input type="text" name="telefone" class="form-control"
-                           th:classappend="${#fields.hasErrors('cliente.telefone')}? is-invalid"
-                           id="telefone" th:field="${cliente.telefone}">
-                    <div class="invalid-feedback"
-                         th:if="${#fields.hasErrors('cliente.telefone')}"
-                         th:errors="${cliente.telefone}">
+                         th:if="${#fields.hasErrors('funcionario.CPF')}"
+                         th:errors="${funcionario.CPF}">
                     </div>
                 </div>
             </div>
@@ -89,21 +54,11 @@
                 <label for="email">E-mail</label>
                 <div>
                     <input type="text" name="email" class="form-control"
-                           th:classappend="${#fields.hasErrors('cliente.email')}? is-invalid"
-                           id="email" th:field="${cliente.email}">
+                           th:classappend="${#fields.hasErrors('funcionario.email')}? is-invalid"
+                           id="email" th:field="${funcionario.email}">
                     <div class="invalid-feedback"
-                         th:if="${#fields.hasErrors('cliente.email')}"
-                         th:errors="${cliente.email}">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col-lg-6 col-md-12">
-                <label for="ConfirmarEmail">Confirme e-mail</label>
-                <div>
-                    <input type="text" class="form-control"
-                           th:field="${cliente.ConfirmarEmail}" id="ConfirmarEmail">
-                    <div style='display: none;margin-top: .25rem; font-size: 80%; color: #dc3545;' id="erroemail">
-                        Confirmação de email não bate!
+                         th:if="${#fields.hasErrors('funcionario.email')}"
+                         th:errors="${funcionario.email}">
                     </div>
                 </div>
             </div>
@@ -112,34 +67,24 @@
                     <label for="senha">Senha</label>
                     <div>
                         <input type="password" name="senha" class="form-control"
-                               th:classappend="${#fields.hasErrors('cliente.hashSenha')}? is-invalid"
-                               id="senha" th:field="${cliente.hashSenha}">
+                               th:classappend="${#fields.hasErrors('funcionario.hashSenha')}? is-invalid"
+                               id="senha" th:field="${funcionario.hashSenha}">
                         <div class="invalid-feedback"
-                             th:if="${#fields.hasErrors('cliente.hashSenha')}"
-                             th:errors="${cliente.hashSenha}">
+                             th:if="${#fields.hasErrors('funcionario.hashSenha')}"
+                             th:errors="${funcionario.hashSenha}">
                         </div>
                     </div>
                 </div>
-                <div class="form-group col-lg-6 col-md-12">
-                    <label for="ConfirmarSenha">Confirme senha</label>
-                    <div>
-                        <input type="password" name="ConfirmarSenha" class="form-control" id="ConfirmarSenha" th:field="${cliente.ConfirmarSenha}">
-                        <div style='display: none;margin-top: .25rem; font-size: 80%; color: #dc3545;' id="errosenha">
-                            Confirmação de senha não bate!
-                        </div>
-                    </div>
-                </div>
-
             <div class="form-group col-lg-6 col-md-6">
                 <label for="ativo">Ativo?</label>
                 <!-- <input type="checkbox" name="ativo" class="form-control"> -->
-                <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="ativo" th:field="${cliente.ativo}" th:checked="${cliente.ativo}">
+                <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="ativo" th:field="${funcionario.ativo}" th:checked="${funcionario.ativo}">
             </div>
 
             <div class="form-group col-lg-6 col-md-12">
-                <label for="sexo">Tipo de acesso</label>
+                <label for="tipoAcesso">Tipo de acesso</label>
                 <div>
-                    <select name="sexo" id="sexo" class="form-control">
+                    <select name="tipoAcesso" id="tipoAcesso" class="form-control">
                         <option value="1">Administrador</option>
                         <option value="2">Estoquista</option>
                     </select>

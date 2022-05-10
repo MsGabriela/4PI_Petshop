@@ -2,27 +2,19 @@ package sp.senac.br.petshop.model;
 
 import java.util.Collection;
 
+import javax.persistence.Entity;
+
+import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 
+
+@Entity
+@Table(name = "Funcionario")
 public class Funcionario extends Usuario{
 
-    private boolean Admin;
 
     public Funcionario(){
 
-    }
-
-    public Funcionario(boolean Admin){
-        super();
-        this.Admin = Admin;
-    }
-
-    public boolean isAdmin() {
-        return Admin;
-    }
-
-    public void setAdmin(boolean Admin) {
-        this.Admin = Admin;
     }
 
     @Override
@@ -65,7 +57,5 @@ public class Funcionario extends Usuario{
     public boolean isEnabled() {
 
         return false;
-    }
-
-    
+    } 
 }

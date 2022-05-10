@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import sp.senac.br.petshop.model.Cliente;
-import sp.senac.br.petshop.repository.ClienteRepository;
+import sp.senac.br.petshop.model.Funcionario;
+import sp.senac.br.petshop.repository.FuncionarioRepository;
 import sp.senac.br.petshop.repository.UsuarioRepository;
 
 @RestController
@@ -24,16 +24,17 @@ public class UsuarioBackOfficeControler {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+    
     @Autowired
-    private ClienteRepository clienteRepository;
+    private FuncionarioRepository funcianarioRepository;
 
     @GetMapping
     public ModelAndView Listar() {
-        ModelAndView mv = new ModelAndView("Usuarios/Listar");
+        ModelAndView mv = new ModelAndView("/Usuarios/Listar");
 
-        List<Cliente> clientes = clienteRepository.findAll();
+        List<Funcionario> funcionario = funcianarioRepository.findAll();
 
-        mv.addObject("clientes", clientes);
+        mv.addObject("funcionario", funcionario);
 
         return mv;
     }
@@ -42,21 +43,21 @@ public class UsuarioBackOfficeControler {
     public ModelAndView Adicionar() {
         ModelAndView mv = new ModelAndView("/Usuarios/Adicionar");
 
-        mv.addObject("cliente", new Cliente());
+        mv.addObject("funcionario", new Funcionario());
 
         return mv;
     }
 
     @PostMapping("/Adicionar")
-    public ModelAndView Adicionar(@ModelAttribute("cliente") @Valid Cliente c, BindingResult bindingResult) {
+    public ModelAndView Adicionar(@ModelAttribute("funcionario") @Valid Funcionario f, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("/Usuarios/Adicionar");
         } else {
-            ModelAndView mv = new ModelAndView("redirect:/Indexbackoffice/Usuarios");
+            ModelAndView mv = new ModelAndView("redirect:/Usuarios");
 
-            c.setAtivo(true);
+            f.setAtivo(true);
 
-            clienteRepository.save(c);
+            funcianarioRepository.save(f);
 
             return mv;
         }
@@ -65,69 +66,65 @@ public class UsuarioBackOfficeControler {
     @GetMapping("/Alterar/{id}")
     public ModelAndView Alterar(@PathVariable int id) {
 
-        Cliente c = clienteRepository.findById(id).get();
+        Funcionario f = funcianarioRepository.findById(id).get();
 
-        if (c == null) {
-            return new ModelAndView("redirect:/Indexbackoffice/Usuarios");
+        if (f == null) {
+            return new ModelAndView("redirect:/Usuarios");
         }
 
         ModelAndView mv = new ModelAndView("/Usuarios/Adicionar");
 
-        mv.addObject("cliente", c);
+        mv.addObject("funcionario", f);
 
         return mv;
     }
 
     @PostMapping("/Alterar/{id}")
     public ModelAndView Alterar(@PathVariable int id,
-            @ModelAttribute("cliente") @Valid Cliente c,
+            @ModelAttribute("cliente") @Valid Funcionario f,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("Adicionar");
         } else {
-            ModelAndView mv = new ModelAndView("redirect:/Indexbackoffice/Usuarios");
+            ModelAndView mv = new ModelAndView("redirect:/Usuarios");
 
-            Cliente cAux = clienteRepository.findById(id).get();
+            Funcionario fAux = funcianarioRepository.findById(id).get();
 
-            if (cAux == null) {
-                return new ModelAndView("redirect:/Indexbackoffice/Usuarios");
+            if (fAux == null) {
+                return new ModelAndView("redirect:/Usuarios");
             }
 
-            cAux.setAtivo(c.getAtivo());
-            cAux.setCPF(c.getCPF());
-            cAux.setDataNascimento(c.getDataNascimento());
-            cAux.setEmail(c.getEmail());
-            cAux.setConfirmarEmail(c.getConfirmarEmail());
-            cAux.setName(c.getName());
-            cAux.setSexo(c.getSexo());
-            cAux.setSobrenome(c.getSobrenome());
-            cAux.setTelefone(c.getTelefone());
-            cAux.setHashSenha(c.getHashSenha());
-            cAux.setConfirmarSenha(c.getConfirmarSenha());
+            fAux.setCPF(f.getCPF());
+            fAux.setEmail(f.getEmail());
+            fAux.setNome(f.getNome());
+            fAux.setSobrenome(f.getSobrenome());
+            fAux.setHashSenha(f.getHashSenha());
 
-            clienteRepository.save(cAux);
+
+            funcianarioRepository.save(fAux);
 
             return mv;
         }
     }
 
     @GetMapping("/Excluir/{id}")
-    public ModelAndView excluirCliente(@PathVariable int id) {
+    public ModelAndView excluirFuncianario(@PathVariable int id) {
         
-        Cliente c = clienteRepository.findById(id).get();
+        Funcionario f = funcianarioRepository.findById(id).get();
 
-        if (c == null) {
-            return new ModelAndView("redirect:/IndexbackOffice/Usuarios");
+        if (f == null) {
+            return new ModelAndView("redirect:/Usuarios");
         }
 
-        if (c.getAtivo()) {
-            c.setAtivo(false);
+        if (f.isAtivo()) {
+            f.setAtivo(false);
         } else {
-            c.setAtivo(true);
+            f.setAtivo(true);
         }
 
-        clienteRepository.save(c);
 
-        return new ModelAndView("redirect:/IndexbackOffice/Usuarios");
+        funcianarioRepository.save(f);
+
+        return new ModelAndView("redirect:/Usuarios");
     }
 }

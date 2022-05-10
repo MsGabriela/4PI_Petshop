@@ -48,7 +48,7 @@
                             <hr>
                         </li>
                         <li>
-                            <a href="/Indexbackoffice/Usuarios" class="nav-link active">
+                            <a href="/Indexbackoffice/Usuarios" class="nav-link">
                                 Usuarios
                             </a>
                         </li>
@@ -63,7 +63,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/Indexbackoffice/TipoAcessos" class="nav-link">
+                            <a href="/Indexbackoffice/TipoAcessos" class="nav-link active">
                                 Tipo de Acesso
                             </a>
                         </li>
@@ -77,36 +77,30 @@
             </div>
             <div class="col-md-1"></div>
             <div class="col-12 col-md-9">
-                <h1 style="text-align: center">Gerenciamento de Clientes</h1>
+                <h1 style="text-align: center">Gerenciamento de Acessos</h1>
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="funcionario : ${funcionarios}">
-                            <td th:text="${funcionario.nome}"></td>
-                            <td th:text="${funcionario.ativo == 1 ? 'Disponivel' : 'Indisponivel'}"
-                                th:style="${funcionario.ativo == 1 ? 'color: green;' : 'color: red;'}"></td>
+                        <tr th:each="tipoAcesso : ${tipoAcessos}">
+                            <td th:text="${tipoAcesso.nome}"></td>
                             <td>
                                 <a class="btn btn-primary col-md-4"
-                                    th:href="@{/Indexbackoffice/Usuarios/Alterar/{id}(id=${funcionario.IdUsuario})}">Alterar</a>
+                                    th:href="@{/Indexbackoffice/TipoAcessos/Alterar/{id}(id=${tipoAcesso.IdTipoAcesso})}">Alterar</a>
                                 &nbsp;&nbsp;
-                                <a class="btn btn-danger col-md-4 excluirfuncionario"
-                                    th:attr="id = ${funcionario.IdUsuario}, nome = ${funcionario.nome}"
-                                    th:href="@{/Indexbackoffice/Usuarios/Excluir/{id}(id=${funcionario.IdUsuario})}">Desabilitar</a>
+                                <a class="btn btn-danger col-md-4 excluirCliente"
+                                    th:attr="id = ${tipoAcesso.IdTipoAcesso}, nome = ${tipoAcesso.nome}"
+                                    th:href="@{/Indexbackoffice/TipoAcessos/Excluir/{id}(id=${tipoAcesso.IdTipoAcesso})}">Desabilitar</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <a class="btn btn-success" th:href="@{/Indexbackoffice/Usuarios/Adicionar}">Adicionar Novo</a>
-
-                <div class="modal modal-warning fade in" th:id="modal-warning+${"></div>
+                <a class="btn btn-success" th:href="@{/Indexbackoffice/TipoAcessos/Adicionar}">Adicionar Novo</a>
             </div>
         </div>
     </div>
