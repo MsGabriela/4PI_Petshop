@@ -89,6 +89,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="funcionario : ${funcionarios}">
+                            <td th:text="${funcionario.idUsuario}"></td>
                             <td th:text="${funcionario.nome}"></td>
                             <td th:text="${funcionario.ativo == 1 ? 'Disponivel' : 'Indisponivel'}"
                                 th:style="${funcionario.ativo == 1 ? 'color: green;' : 'color: red;'}"></td>

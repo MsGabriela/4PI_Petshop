@@ -66,7 +66,7 @@ public class UsuarioBackOfficeControler {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("/Usuarios/Adicionar");
         } else {
-            ModelAndView mv = new ModelAndView("redirect:/Usuarios");
+            ModelAndView mv = new ModelAndView("redirect:/Indexbackoffice/Usuarios");
 
             f.setAtivo(true);
 
