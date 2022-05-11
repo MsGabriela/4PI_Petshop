@@ -42,13 +42,13 @@
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link " aria-current="page">                          
+                            <a href="#" class="nav-link" aria-current="page">                          
                                 Home
                             </a>
                             <hr>
                         </li>
                         <li>
-                            <a href="/Indexbackoffice/Usuarios" class="nav-link">
+                            <a href="/Indexbackoffice/Usuarios" class="nav-link ">
                                 Usuarios
                             </a>
                         </li>
@@ -58,12 +58,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/Indexbackoffice/Produtos" class="nav-link active">
+                            <a href="/Indexbackoffice/Produtos" class="nav-link">
                                 Produtos
                             </a>
                         </li>
                         <li>
-                            <a href="/Indexbackoffice/Permissoes" class="nav-link">
+                            <a href="/Indexbackoffice/Permissoes" class="nav-link active">
                                 Tipo de Usuario
                             </a>
                         </li>
@@ -82,40 +82,34 @@
             </div>
             <div class="col-md-1"></div>
             <div class="col-12 col-md-9">
-                <h1 style="text-align: center">Gerenciamento de Produtos</h1>
+                <h1 style="text-align: center">Gerenciamento de Clientes</h1>
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
+                            <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Ativo</th>
+                            <th scope="col">Função</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="produto : ${produtos}">
-                            <td th:text="${produto.nome}"></td>
-                            <td th:text="${produto.ativo == true ? 'Disponivel' : 'Indisponivel'}"
-                                th:style="${produto.ativo == true ? 'color: green;' : 'color: red;'}"></td>
+                        <tr th:each="permissoes : ${permissoes}">
+                            <td></td>
+                            <td th:text="${permissoes.funcionario.nome}"></td>
+                            <td th:text="${permissoes.tipoAcesso.nome}"></td>
                             <td>
                                 <a class="btn btn-primary col-md-4"
-                                th:href="@{/Indexbackoffice/Produtos/Detalhes/{id}(id=${produto.IdProduto})}">Detalhes</a>
-                                
+                                    th:href="@{/Indexbackoffice/Permissoes/Alterar/{id}(id=${funcionario.IdUsuario})}">Alterar</a>
                                 &nbsp;&nbsp;
-
-                                <a class="btn btn-warning col-md-4"
-                                    th:href="@{/Indexbackoffice/Produtos/Alterar/{id}(id=${produto.IdProduto})}">Alterar</a>
-
-                                &nbsp;&nbsp;
-
-                                <a class="btn btn-danger col-md-4 excluirCliente"
-                                    th:attr="id = ${produto.IdCategoria}, nome = ${produto.nome}"
-                                    th:href="@{/Indexbackoffice/Produtos/Excluir/{id}(id=${produto.IdProduto})}">Desabilitar</a>
+                                <a class="btn btn-danger col-md-4 excluirfuncionario"
+                                    th:attr="id = ${funcionario.IdUsuario}, nome = ${usuario.Mome}"
+                                    th:href="@{/Indexbackoffice/Permissoes/Excluir/{id}(id=${funcionario.IdUsuario})}">Desabilitar</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <a class="btn btn-success" th:href="@{/Indexbackoffice/Produtos/Adicionar}">Adicionar Novo</a>
+                <a class="btn btn-success" th:href="@{/Indexbackoffice/Permissoes/Adicionar}">Adicionar Novo</a>
             </div>
         </div>
     </div>

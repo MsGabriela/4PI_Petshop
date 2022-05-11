@@ -15,34 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import sp.senac.br.petshop.model.Categoria;
+import sp.senac.br.petshop.model.Funcionario;
 import sp.senac.br.petshop.model.LinkPermissoes;
 import sp.senac.br.petshop.model.Usuario;
 import sp.senac.br.petshop.model.tipoAcesso;
-import sp.senac.br.petshop.repository.CategoriaRepository;
+import sp.senac.br.petshop.repository.FuncionarioRepository;
 import sp.senac.br.petshop.repository.LinkPermissaoRepository;
 import sp.senac.br.petshop.repository.TipoAcessoRepository;
 import sp.senac.br.petshop.repository.UsuarioRepository;
 
 @RestController
-@RequestMapping("/Indexbackoffice/LinkPermissao")
+@RequestMapping("/Indexbackoffice/Permissoes")
 public class LinkPermissaoController {
     
     @Autowired
     LinkPermissaoRepository linkPermissaoRepository;
     @Autowired   
-    UsuarioRepository usuarioRepository;
+    FuncionarioRepository funcionarioRepository;
     @Autowired
     TipoAcessoRepository tipoAcessoRepository;
 
     @GetMapping
     public ModelAndView Listar()
     {
-        ModelAndView mv = new ModelAndView("/TipoAcessos/Listar");
+        ModelAndView mv = new ModelAndView("/Permissoes/Listar");
 
-        List<LinkPermissoes> linkPermissao = linkPermissaoRepository.findAll();
+        List<LinkPermissoes> permissoes = linkPermissaoRepository.findAll();
 
-        mv.addObject("linkPermissao", linkPermissao);
+        mv.addObject("permissoes", permissoes);
 
         return mv;
     }
@@ -50,20 +50,20 @@ public class LinkPermissaoController {
     @GetMapping("/Adicionar")
     public ModelAndView Adicionar(LinkPermissoes permissoes)
     {
-        ModelAndView mv = new ModelAndView("/LinkPermissoes/Adicionar");
+        ModelAndView mv = new ModelAndView("/Permissoes/Adicionar");
 
-        List<Usuario> usuarios = usuarioRepository.findAll();
+        List<Funcionario> funcionario = funcionarioRepository.findAll();
         List<tipoAcesso> tipoAcessos = tipoAcessoRepository.findAll();
 
-        mv.addObject("usuarios", usuarios);
+        mv.addObject("funcionario", funcionario);
         mv.addObject("tipoAcessos", tipoAcessos);
         mv.addObject("permissoes", permissoes);
-
+        
         return mv;
     }
 
     @PostMapping("/Adicionar")
-    public ModelAndView Adicionar(@ModelAttribute("LinkPermissoes") @Valid LinkPermissoes l, BindingResult bindingResult)
+    public ModelAndView Adicionar(@ModelAttribute("permissoes") @Valid LinkPermissoes l, BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
         {
@@ -71,33 +71,33 @@ public class LinkPermissaoController {
         }
         else
         {
-            linkPermissaoRepository.saveAndFlush(l);
-
-            return Adicionar(new LinkPermissoes());
+             ModelAndView mv = new ModelAndView("redirect:/Indexbackoffice/Permissoes");
+            linkPermissaoRepository.saveAndFlush(l);         
+            return mv;
         }
     }
+
+    // @GetMapping("/Alterar/{id}")
+    // public ModelAndView Alterar(@PathVariable int id)
+    // {
+    //     LinkPermissoes l = linkPermissaoRepository.findById(id).get();
+
+    //     if(l == null)
+    //     {
+    //         return new ModelAndView("redirect:/Indexbackoffice/Permissoes");
+    //     }
+    
+    //     ModelAndView mv = new ModelAndView("/Permissoes/Adicionar");
+
+    //     mv.addObject("LinkPermissoes", l);
+
+    //     return mv;
+    // }
 
     @GetMapping("/Alterar/{id}")
-    public ModelAndView Alterar(@PathVariable int id)
-    {
-        LinkPermissoes l = linkPermissaoRepository.findById(id).get();
-
-        if(l == null)
-        {
-            return new ModelAndView("redirect:/Indexbackoffice/LinkPermissoes");
-        }
-    
-        ModelAndView mv = new ModelAndView("/LinkPermissoes/Adicionar");
-
-        mv.addObject("LinkPermissoes", l);
-
-        return mv;
-    }
-
-    @PostMapping("/Alterar/{id}")
-    public ModelAndView Alterar(@PathVariable int id, @ModelAttribute("LinkPermissoes") @Valid LinkPermissoes t){
-        Optional <LinkPermissoes> idPer = linkPermissaoRepository.findById(id);
-        return Adicionar(idPer.get());
+    public ModelAndView Alterar(@PathVariable int id, @ModelAttribute("permissoes") @Valid LinkPermissoes t){
+        Optional <LinkPermissoes> permissoes = linkPermissaoRepository.findById(id);
+        return Adicionar(permissoes.get());
     }
 
     @GetMapping("/Excluir/{id}")
@@ -107,12 +107,12 @@ public class LinkPermissaoController {
 
         if(l == null)
         {
-            return new ModelAndView("redirect:/Indexbackoffice/LinkPermissoes");
+            return new ModelAndView("redirect:/Indexbackoffice/Permissoes");
         }
 
 
         linkPermissaoRepository.delete(l);
 
-        return new ModelAndView("redirect:/Indexbackoffice/LinkPermissoes");
+        return new ModelAndView("redirect:/Indexbackoffice/Permissoes");
     }
 }

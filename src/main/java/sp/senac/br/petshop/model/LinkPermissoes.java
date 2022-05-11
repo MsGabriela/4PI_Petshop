@@ -18,9 +18,9 @@ public class LinkPermissoes {
     private int idPermissao;
 
     @ManyToOne
-    private Usuario user;
+    private Funcionario funcionario;
 
     @ManyToOne
-    private tipoAcesso tipoA;
+    private tipoAcesso tipoAcessos;
     
 }
